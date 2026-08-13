@@ -1,0 +1,1975 @@
+{
+ "apiVersion": "2.151",
+ "terms": "***",
+ "responseTime": 65,
+ "totalResults": 9,
+ "pageNumber": 1,
+ "pageSize": 100,
+ "sort": "relevance",
+ "groupByField": "sortStatus",
+ "queryLanguage": {
+  "language": "en",
+  "probability": 0.0
+ },
+ "bestBets": [],
+ "warnings": [],
+ "results": [
+  {
+   "apiVersion": "2.151",
+   "reference": "50138952TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2027-05-SOIL-01-two-stage",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Living labs to enhance soil health in Continental, Black Sea, Pannonian and Steppic biogeographical regions",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "1DD8F7FC894EE8D293324BA3025F95DE2B756BB74C2BDB8C83135AADFE2FEB0D",
+   "metadata": {
+    "es_SortDate": [
+     "2027-02-04T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-MISS-2027-05-SOIL-01-two-stage",
+     "HORIZON-MISS-2027-05-two-stage",
+     "Agriculture",
+     "Agriculture related to crop production, soil biology and cultivation, applied plant biology",
+     "Ecosystem services provided by soils",
+     "Soil biodiversity",
+     "Soil chemistry",
+     "Soil conservation"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "Living labs to enhance soil health in Continental, Black Sea, Pannonian and Steppic biogeographical regions"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "typeOfMGAs": [
+     "43027846"
+    ],
+    "callIdentifier": [
+     "HORIZON-MISS-2027-05-two-stage"
+    ],
+    "ccm2Id": [
+     "50138952"
+    ],
+    "callccm2Id": [
+     "50139106"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "50138952TOPICSen"
+    ],
+    "callTitle": [
+     "Supporting the implementation of the Soil Deal for Europe Mission"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>Activities under this topic respond directly to the goal of the <a href=\"https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/eu-missions-horizon-europe/soil-deal-europe_en\">Mission Soil</a> to set up 100 living labs and lighthouses to lead the transition to healthy soils by 2030 and support its specific objectives<sup>[1]</sup>.</p><p>Activities should also contribute to the Common Agricultural Policy and to meeting the European Green Deal ambitions and targets and more specifically those of the <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A52020DC0380\">EU Biodiversity Strategy for 2030</a>, the <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52021DC0699\">EU Soil Strategy for 2030</a> and the <a href=\"https://environme"
+    ],
+    "identifier": [
+     "HORIZON-MISS-2027-05-SOIL-01-two-stage"
+    ],
+    "programmeDivision": [
+     "43108390",
+     "43108541",
+     "43121563"
+    ],
+    "crossCuttingPriorities": [
+     "SSH",
+     "AI",
+     "DigitalAgenda",
+     "MultiActorApproach"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-04-08T00:00:00.000+0000",
+     "2027-09-14T00:00:00.000+0000"
+    ],
+    "typesOfAction": [
+     "HORIZON  Research and Innovation Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2027-05-SOIL-01-two-stage"
+    ],
+    "tags": [
+     "Agriculture",
+     "Biogeographical region",
+     "Black Sea",
+     "Bottom Up",
+     "Co-creation",
+     "Continental",
+     "Integrated sciences",
+     "Interdisciplinary"
+    ],
+    "cenTagsA": [
+     "TOPICS-010407",
+     "TOPICS-002153",
+     "TOPICS-002154",
+     "TOPICS-002155",
+     "TOPICS-010408",
+     "TOPICS-002156",
+     "TOPICS-002159",
+     "TOPICS-000085",
+     "TOPICS-002158",
+     "TOPICS-002160",
+     "TOPICS-001136",
+     "TOPICS-002161",
+     "TOPICS-001634",
+     "TOPICS-002162",
+     "TOPICS-010409",
+     "TOPICS-002164",
+     "TOPICS-002165",
+     "TOPICS-002166",
+     "TOPICS-002170",
+     "TOPICS-010410",
+     "TOPICS-002171",
+     "TOPICS-010411",
+     "TOPICS-002167",
+     "TOPICS-001592",
+     "TOPICS-001640",
+     "TOPICS-001641",
+     "TOPICS-001591",
+     "TOPICS-002172",
+     "TOPICS-001647",
+     "TOPICS-002173",
+     "TOPICS-001793",
+     "TOPICS-001794",
+     "TOPICS-002174",
+     "TOPICS-002175"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-RIA HORIZON  Research and Innovation Actions\",\"typeOfMGA\":[{\"id\":43027846,\"abbreviation\":\"HORIZON-AG\",\"description\":\"HORIZON Action Grant Budget-Based\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2027-02-04\",\"submissionProcedure\":{\"id\":31094505,\"abbreviation\":\"two-stage\",\"description\":\"two-stage\"},\"deadlineDates\":[\"2027-04-08\",\"2027-09-14\"]}]"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\"],\"budgetTopicActionMap\":{\"113089\":[{\"action\":\"HORIZON-MISS-2027-05-SOIL-02-two-stage - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":2,\"minContribution\":12000000,\"maxContribution\":12000000,\"budgetYearMap\":{\"2027\":\"24000000\"},\"plannedOpeningDate\":\"2027-02-04\",\"deadlineModel\":\"two-stage\",\"deadlineDates\":[\"2027-04-08\",\"2027-09-14\"]}],\"113088\":[{\"action\":\"HORIZON-MISS-2027-05-SOIL-06-two-stage - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":1,\"minContribution\":7000000,\"maxContribution\":7000000,\"budgetYearMap\":{\"2027\":\""
+    ],
+    "startDate": [
+     "2027-02-04T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "two-stage"
+    ],
+    "specificObjective": [],
+    "status": [
+     "31094501"
+    ]
+   },
+   "citation": "Living labs to enhance soil health in Continental, Black Sea, Pannonian and Steppic biogeographical regions. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2027-05-SOIL-01-two-stage"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "45703306HORIZONResearchandInnovationActions1696377600000",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-CL2-2024-TRANSFORMATIONS-01-08.json",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "",
+   "summary": "Arts and cultural awareness and expression in education and training",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "59A015123A9A7DB8DE5E3C45D804F9C5EEC93EC3227CC839469BB68451C0D299",
+   "metadata": {
+    "es_SortDate": [
+     "2023-10-04T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "[\"Gender research\",\"Education: systems and institutions, teaching and\",\"Studies on Film, Radio and Television\",\"Anthropology, ethnology\",\"Performing arts studies (Musicology, Theater scien\",\"Cultural studies, cultural diversity\",\"Social sciences and humanities\",\"Architectural design\",\"Education, general (including training, pedagogy,\",\"Arts, Art history\",\"New European Bauhaus\",\"Folklore studies\",\"Gender in social sciences\",\"Education, special (to gifted persons, those with\",\"Anthropology, ethnology\",\"Gender research\",\"Studies on Film, radio and television\",\"HORIZON-CL2-2024-TRANSFORMATIONS-01-08\",\"Social sciences, interdisciplinary\",\"Cultural studies, cultural diversity\",\"Education and training\",\"Architectural design\",\"Performing arts studies\",\"Policy recommendations\",\"Education, special\",\"Education: systems and institutions, teaching and learning\",\"Education, general (including training, pedagogy, didactics)\",\"Folklore studies\",\"Arts, arts history\"]"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "ccmTags2": [
+     "HCCM_31050985",
+     "HCCM_31050984",
+     "HCCM_31051201",
+     "HCCM_31051191",
+     "HCCM_31051020",
+     "HCCM_31051204",
+     "HCCM_31050999",
+     "HCCM_31051221",
+     "HCCM_31051203",
+     "HCCM_31051200",
+     "HCCM_31051011",
+     "HCCM_31051101",
+     "HCCM_31051204",
+     "HCCM_31050984",
+     "HTAG_000015488",
+     "HCCM_31062416",
+     "HCCM_31051011",
+     "HCCM_31051101",
+     "HTAG_000005992",
+     "HCCM_31051221",
+     "HCCM_31051108",
+     "HCCM_31051200",
+     "HTAG_000001008",
+     "HTAG_000015076",
+     "HCCM_31050985",
+     "HCCM_31051203",
+     "HTAG_000009693",
+     "HTITLE_000014157",
+     "MTAGS_000096605",
+     "MTAGS_000057731",
+     "MTAGS_000024308",
+     "MTAGS_000088388",
+     "MTAGS_000084353",
+     "MTAGS_000012895",
+     "MTAGS_000037601",
+     "MTAGS_000056938",
+     "MTAGS_000086496",
+     "MTAGS_000093744",
+     "MTAGS_000006335",
+     "MTAGS_000085008",
+     "MTAGS_000011123",
+     "MTAGS_000069879",
+     "MTAGS_000014468",
+     "MTAGS_000031438",
+     "MTAGS_000040981",
+     "MTAGS_000025564",
+     "MTAGS_000076097",
+     "MTAGS_000026496",
+     "MTAGS_000070155",
+     "MTAGS_000060856",
+     "MTAGS_000055868",
+     "MTAGS_000032039",
+     "MTAGS_000049372",
+     "MTAGS_000031085",
+     "MTAGS_000068060"
+    ],
+    "destination": [
+     "44799018"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "title": [
+     "Arts and cultural awareness and expression in education and training"
+    ],
+    "focusArea": [],
+    "cftId": [
+     "0"
+    ],
+    "typeOfMGAs": [
+     "43027846"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL2-2024-TRANSFORMATIONS-01"
+    ],
+    "ccm2Id": [
+     "45703306"
+    ],
+    "callccm2Id": [
+     "45703639"
+    ],
+    "destinationGroup": [
+     "45355262"
+    ],
+    "esIN_ccmTags": [
+     "HCCM_31050985",
+     "HCCM_31050984",
+     "HCCM_31051201",
+     "HCCM_31051191",
+     "HCCM_31051020",
+     "HCCM_31051204",
+     "HCCM_31050999",
+     "HCCM_31051221",
+     "HCCM_31051203",
+     "HCCM_31051200",
+     "HCCM_31051011",
+     "HCCM_31051101",
+     "HCCM_31051204",
+     "HCCM_31050984",
+     "HTAG_000015488",
+     "HCCM_31062416",
+     "HCCM_31051011",
+     "HCCM_31051101",
+     "HTAG_000005992",
+     "HCCM_31051221",
+     "HCCM_31051108",
+     "HCCM_31051200",
+     "HTAG_000001008",
+     "HTAG_000015076",
+     "HCCM_31050985",
+     "HCCM_31051203",
+     "HTAG_000009693",
+     "HTITLE_000014157",
+     "MTAGS_000096605",
+     "MTAGS_000057731",
+     "MTAGS_000024308",
+     "MTAGS_000088388",
+     "MTAGS_000084353",
+     "MTAGS_000012895",
+     "MTAGS_000037601",
+     "MTAGS_000056938",
+     "MTAGS_000086496",
+     "MTAGS_000093744",
+     "MTAGS_000006335",
+     "MTAGS_000085008",
+     "MTAGS_000011123",
+     "MTAGS_000069879",
+     "MTAGS_000014468",
+     "MTAGS_000031438",
+     "MTAGS_000040981",
+     "MTAGS_000025564",
+     "MTAGS_000076097",
+     "MTAGS_000026496",
+     "MTAGS_000070155",
+     "MTAGS_000060856",
+     "MTAGS_000055868",
+     "MTAGS_000032039",
+     "MTAGS_000049372",
+     "MTAGS_000031085",
+     "MTAGS_000068060"
+    ],
+    "DATASOURCE": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "identifier": [
+     "HORIZON-CL2-2024-TRANSFORMATIONS-01-08"
+    ],
+    "programmeDivision": [
+     "43118846",
+     "43118966",
+     "43108541"
+    ],
+    "crossCuttingPriorities": [
+     "SSH",
+     "NEB"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2024-02-07T17:00:00.000+0000"
+    ],
+    "ccmTags": [
+     "HCCM_31050985",
+     "HCCM_31050984",
+     "HCCM_31051201",
+     "HCCM_31051191",
+     "HCCM_31051020",
+     "HCCM_31051204",
+     "HCCM_31050999",
+     "HCCM_31051221",
+     "HCCM_31051203",
+     "HCCM_31051200",
+     "HCCM_31051011",
+     "HCCM_31051101",
+     "HCCM_31051204",
+     "HCCM_31050984",
+     "HTAG_000015488",
+     "HCCM_31062416",
+     "HCCM_31051011",
+     "HCCM_31051101",
+     "HTAG_000005992",
+     "HCCM_31051221",
+     "HCCM_31051108",
+     "HCCM_31051200",
+     "HTAG_000001008",
+     "HTAG_000015076",
+     "HCCM_31050985",
+     "HCCM_31051203",
+     "HTAG_000009693",
+     "HTITLE_000014157",
+     "MTAGS_000096605",
+     "MTAGS_000057731",
+     "MTAGS_000024308",
+     "MTAGS_000088388",
+     "MTAGS_000084353",
+     "MTAGS_000012895",
+     "MTAGS_000037601",
+     "MTAGS_000056938",
+     "MTAGS_000086496",
+     "MTAGS_000093744",
+     "MTAGS_000006335",
+     "MTAGS_000085008",
+     "MTAGS_000011123",
+     "MTAGS_000069879",
+     "MTAGS_000014468",
+     "MTAGS_000031438",
+     "MTAGS_000040981",
+     "MTAGS_000025564",
+     "MTAGS_000076097",
+     "MTAGS_000026496",
+     "MTAGS_000070155",
+     "MTAGS_000060856",
+     "MTAGS_000055868",
+     "MTAGS_000032039",
+     "MTAGS_000049372",
+     "MTAGS_000031085",
+     "MTAGS_000068060"
+    ],
+    "typesOfAction": [
+     "HORIZON  Research and Innovation Actions"
+    ],
+    "corporate-search-version": [
+     "102"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-CL2-2024-TRANSFORMATIONS-01-08.json"
+    ],
+    "datasource": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "startDate": [
+     "2023-10-04T00:00:00.000+0000"
+    ],
+    "esIN_ccmTags2": [
+     "TTG_00026597",
+     "TTL_00043601",
+     "TCM_00043609",
+     "TCM_00043612",
+     "TCM_00043613",
+     "TTG_00043614",
+     "TTG_00043615",
+     "TTG_00043616",
+     "TTG_00043620",
+     "TTG_00043622",
+     "TTG_00043623",
+     "TTG_00043625",
+     "TTG_00043628",
+     "TCM_00017241",
+     "TCM_00019261",
+     "TTG_00033867",
+     "TTG_00026622",
+     "TTG_00026614",
+     "TTG_00026615",
+     "TTG_00026617",
+     "TTG_00020609",
+     "TCM_00026606",
+     "TCM_00026607",
+     "TCM_00031022",
+     "TCM_00023423",
+     "TCM_00031076",
+     "TCM_00020353",
+     "TCM_00034299"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ]
+   },
+   "citation": "Arts and cultural awareness and expression in education and training. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-CL2-2024-TRANSFORMATIONS-01-08.json"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "50131803TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Horizon scanning and foresight in future enabling digital technologies (CSA)",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "62C132E9D44A516A43F1E2EC3E7B46581E8DF7CC4623A17A7AA49C95E3F344E4",
+   "metadata": {
+    "es_SortDate": [
+     "2026-11-17T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-CL4-2027-04-DIGITAL-EMERGING-10",
+     "HORIZON-CL4-2027-04",
+     "Computer sciences, information science and bioinformatics"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "destinationDetails": [
+     "<p>Leadership in frontier technologies such as Artificial Intelligence, Quantum, Photonics and Semiconductors is essential to Europe’s economic security and global competitiveness. Building on the ambition of becoming the “AI Continent” and in line with the concrete actions devised in the Apply AI Strategy<sup>[1]</sup>, the EU will consolidate its world-class research ecosystem through initiatives like the RAISE network of AI science labs, the development of safe and efficient frontier AI models, and the deployment of next-generation AI agents and robotics in strategic sectors. In parallel, a long-term quantum strategy will reinforce Europe’s excellence across quantum computing, sensing and communication, supported by new infrastructures and standardisation to secure technological sovereignty. Photonics and semiconductor technologies will remain critical enablers for the digital and green transitions, with investments in advanced integrated photonic devices and resilient semiconductor ecosystems ensuring Europe’s capacity to innovate, scale and compete globally. Foresight and support to emerging materials and technologies will further strengthen Europe’s position at the cutting edge to make sure Europe’s does not miss the emergence of new disruptive technologies, aligning with the Draghi report and the Competitiveness Compass to secure a cohesive, sovereign and future-proof European industrial base.</p><p>Legal entities established in China are not eligible to participate in both Research and Innovation Actions (RIAs) and Innovation Actions (IAs) falling under this destination. For additional information please see “Restrictions on the participation of legal entities established in China” found in General Annex B of the General Annexes.</p><p class=\"eui-u-font-s\">[1] COM(2025)723 Apply AI Strategy</p>"
+    ],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL4-2027-04"
+    ],
+    "callccm2Id": [
+     "50132073"
+    ],
+    "destinationGroup": [
+     "46772868"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "callTitle": [
+     "DIGITAL"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p> </p><ul level=\"0\"><li>European leadership in foresight activities on future enabling technologies and their transformational potential in industrial, societal and environmental terms.</li><li>Increased collaboration between academia, industry players and other relevant stakeholders in iterative and multidisciplinary approaches for co-creating the enabling technologies of the future.</li><li>Alignment with national or regional initiatives creating an expanding innovation ecosystem, anchored in local contexts across Europe, for selected emerging technologies.</li><li>Accelerating the pick-up of novel advanced technology by industry and society.</li> </ul><p class=\"topicdescriptionkind\">Scope:</p><p>Proposals should establish a forum for emerging interdisciplinary areas and new technological visions.</p><p>Proposals should enable and "
+    ],
+    "identifier": [
+     "HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-03-18T00:00:00.000+0000"
+    ],
+    "tags": [
+     "foresight"
+    ],
+    "cenTagsA": [
+     "TOPICS-057746",
+     "TOPICS-057747",
+     "TOPICS-057748",
+     "TOPICS-057749",
+     "TOPICS-057672",
+     "TOPICS-015215",
+     "TOPICS-000041"
+    ],
+    "destinationDescription": [
+     "Achieving open strategic autonomy in digital and emerging enabling technologies (2026-27)"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-CSA HORIZON Coordination and Support Actions\",\"typeOfMGA\":[{\"id\":43027849,\"abbreviation\":\"HORIZON-AG-LS\",\"description\":\"HORIZON Lump Sum Grant\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2026-11-17\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-03-18\"]}]"
+    ],
+    "startDate": [
+     "2026-11-17T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "destination": [
+     "48080629"
+    ],
+    "title": [
+     "Horizon scanning and foresight in future enabling digital technologies (CSA)"
+    ],
+    "ccm2Id": [
+     "50131803"
+    ],
+    "REFERENCE": [
+     "50131803TOPICSen"
+    ],
+    "programmeDivision": [
+     "43108541",
+     "43120193",
+     "43120203",
+     "43120208",
+     "43108390"
+    ],
+    "crossCuttingPriorities": [
+     "SocietalEngagement",
+     "AI",
+     "DigitalAgenda"
+    ],
+    "typesOfAction": [
+     "HORIZON Coordination and Support Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\"],\"budgetTopicActionMap\":{\"112913\":[{\"action\":\"HORIZON-CL4-2027-04-DIGITAL-EMERGING-04 - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":3,\"minContribution\":14000000,\"maxContribution\":14000000,\"budgetYearMap\":{\"2027\":\"42000000\"},\"plannedOpeningDate\":\"2026-11-17\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-03-18\"]}],\"112912\":[{\"action\":\"HORIZON-CL4-2027-04-HUMAN-07 - HORIZON-CSA HORIZON Coordination and Support Actions\",\"expectedGrants\":1,\"minContribution\":7000000,\"maxContribution\":7000000,\"budgetYearMap\":{\"2027\":\"7000000\"},\"plannedO"
+    ],
+    "specificObjective": []
+   },
+   "citation": "Horizon scanning and foresight in future enabling digital technologies (CSA). Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "50130852TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-05",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Higher Voltage, Megawatt Charging System compatible, modular powertrain for Heavy Duty Vehicles (HDV) (2ZERO Partnership)",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "C26E8ADA5147458F5012FE58A0FC0409AA591DD1E485B7C84C26DFD6CF2EF84F",
+   "metadata": {
+    "es_SortDate": [
+     "2026-12-15T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-CL5-2027-03-D5-05",
+     "HORIZON-CL5-2027-03"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "destinationDetails": [
+     "<p>This Destination addresses activities that improve the climate and environmental footprint, as well as competitiveness, of different transport modes.</p><p>The areas of rail and air traffic management will be addressed through dedicated Institutional European Partnerships and are therefore not included in this document.</p><p>This Destination contributes directly to the Strategic Plan’s <strong>Key Strategic Orientations</strong> ‘<em>Green transition</em>’, ‘<em>Digital transition</em>’ and ‘<em>A more resilient, competitive, inclusive and democratic Europe</em>’.</p><p>In line with the Strategic Plan, the overall <strong>expected impact </strong>of this Destination is to contribute to the <em>‘Achieving sustainable and competitive transport modes’</em>.</p><p><strong>The main impacts to be generated by topics under this Destination are:</strong></p><p><em><u>Zero-emission road transport</u></em></p><ol level=\"0\">  <li>Accelerated uptake of a zero-tailpipe emission ecosystem, with interoperable technological solutions developed at system level (vehicles, infrastructure, user and energy grid) that support the global competitiveness of the EU transport and mobility system.</li><li>Zero-tailpipe emission mobility solutions developed that are affordable, efficient, user-friendly, inclusive, safe and circular with concepts and technologies that are easy to deploy, considering needs, behaviours and socio-economic conditions of all end-users.</li><li>Clean mobility solutions for a climate neutral and environmentally friendly and zero pollution mobility with a higher level of circularity;</li><li>Increased responsiveness of zero tailpipe emission vehicles and systems to diverse societal interests and concerns.<em><u> </u></em></li> </ol><p><em><u>Aviation</u></em></p><ol level=\"0\">  <li>Enable breakthrough technologies and innovations that will contribute to the design (addressing also eco-design and circularity principles), manufacturing, maintenance and operations of new generation aircrafts, also powered by renewable energy and sustainable aviation fuels, for a competitive and clean EU aviation ecosystem (including airports).</li><li>Derisk and accelerate the introduction of new digital technologies (with emphasis on AI) at all levels in the industrial aviation ecosystem, while addressing all safety-related issues in collaboration with the European Union Aviation Safety Agency (EASA).</li> </ol><p><em><u>Waterborne transport</u></em></p><ol level=\"0\">  <li>Higher autonomy range in electric and hybrid vessels.</li><li>Uptake of renewable and low carbon fuels and improved knowledge on the suitability of innovative renewable and low carbon fuels and other energy carriers for waterborne transport.</li><li>Support the objectives of the European Port Strategy and Waterborne Industrial Strategy, contributing the role of ports as energy hubs, improving efficiency and safety through digitalization, improving the resilience and security of the transport network, as well as increasing the competitiveness of the industrial and technology EU capabilities.</li><li>Significant reduction of emissions from large vessels due to the merging of energy efficiency and renewable and low carbon fuels.</li><li>Sustainability of waterborne transport by design, considering air and water pollution, circularity and life-cycle assessments in shipbuilding.</li><li>Improved safety of seafarers, port workers and the environment.</li> </ol><p><em><u>Transport-related environment and health</u></em></p><ol level=\"0\">  <li>The better monitoring of the environmental performance and enforcement of emissions regulation and biodiversity protection in order to reduce the overall environmental impact of transport (e.g.: as regards biodiversity, noise, pollution and waste) on human health and ecosystems.</li> </ol><p>Legal entities established in China are not eligible to participate in both Research and Innovation Actions (RIAs) and Innovation Actions (IAs) falling under this destination. For additional information please see “Restrictions on the participation of legal entities established in China” found in General Annex B of the General Annexes.</p>"
+    ],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL5-2027-03"
+    ],
+    "callccm2Id": [
+     "50133176"
+    ],
+    "destinationGroup": [
+     "46772883"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "callTitle": [
+     "MOBILITY"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>Project results are expected to contribute to all of the following expected outcomes:</p><ul level=\"0\"><li>Demonstrated integration potential and modularity of next level advanced high-voltage systems to benefit cost of Commercial Vehicles (CV) in particular for the Heavy-Duty Vehicles (HDV) segment.</li><li>Improved energy efficiency and higher utilization potential of HDV (ensuring full operational capability for the intended usage models) via high-voltage powertrain configurations.</li><li>Demonstrated benefits of high-voltage systems also for fast charging and auxiliary components. </li> </ul><p class=\"topicdescriptionkind\">Scope:</p><p>Major challenges still faced by Heavy Duty Battery Electric Vehicles (HD-BEV) are cost and fast charging. As electric vehicles become more attractive through Total Cost of Ownership (TCO), signif"
+    ],
+    "identifier": [
+     "HORIZON-CL5-2027-03-D5-05"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2027-04-14T00:00:00.000+0000"
+    ],
+    "tags": [],
+    "cenTagsA": [
+     "TOPICS-061412",
+     "TOPICS-061413",
+     "TOPICS-006324",
+     "TOPICS-005364",
+     "TOPICS-061414",
+     "TOPICS-061415"
+    ],
+    "destinationDescription": [
+     "Achieving sustainable, inclusive, and competitive transport modes (2026-27)"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-IA HORIZON Innovation Actions\",\"typeOfMGA\":[{\"id\":43027849,\"abbreviation\":\"HORIZON-AG-LS\",\"description\":\"HORIZON Lump Sum Grant\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2026-12-15\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2027-04-14\"]}]"
+    ],
+    "startDate": [
+     "2026-12-15T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "destination": [
+     "48080643"
+    ],
+    "title": [
+     "Higher Voltage, Megawatt Charging System compatible, modular powertrain for Heavy Duty Vehicles (HDV) (2ZERO Partnership)"
+    ],
+    "ccm2Id": [
+     "50130852"
+    ],
+    "REFERENCE": [
+     "50130852TOPICSen"
+    ],
+    "programmeDivision": [
+     "43121073",
+     "43121078",
+     "43121083",
+     "43120821",
+     "43108541"
+    ],
+    "crossCuttingPriorities": [
+     "PART-COPROGR",
+     "DigitalAgenda",
+     "AI"
+    ],
+    "typesOfAction": [
+     "HORIZON Innovation Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-05"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\"],\"budgetTopicActionMap\":{\"112963\":[{\"action\":\"HORIZON-CL5-2027-03-D5-17 - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":2,\"minContribution\":7000000,\"maxContribution\":7000000,\"budgetYearMap\":{\"2027\":\"14000000\"},\"plannedOpeningDate\":\"2026-12-15\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2027-04-14\"]}],\"112965\":[{\"action\":\"HORIZON-CL5-2027-03-D5-06 - HORIZON-IA HORIZON Innovation Actions\",\"expectedGrants\":1,\"minContribution\":8000000,\"maxContribution\":8000000,\"budgetYearMap\":{\"2027\":\"8000000\"},\"plannedOpeningDate\":\"2026-12-15\",\"deadline"
+    ],
+    "specificObjective": []
+   },
+   "citation": "Higher Voltage, Megawatt Charging System compatible, modular powertrain for Heavy Duty Vehicles (HDV) (2ZERO Partnership). Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-05"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "50127691TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Additional activities for the European Partnership of Agriculture of Data",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "1ACB57ECDC3B006D760D9473CFD7449B456775DF5232BA1B82E86F94DA16A7B9",
+   "metadata": {
+    "es_SortDate": [
+     "2026-08-25T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-CL6-2026-04-GOVERNANCE-01",
+     "HORIZON-CL6-2026-04",
+     "Data protection and privacy",
+     "Data value chains",
+     "Digital data",
+     "Digital services",
+     "Digital skills",
+     "Earth Observation / Services and applications"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "destinationDetails": [
+     "<p>This destination will support the EU Commission priorities ‘Sustaining our quality of life: food security, water and nature’ and ‘A new plan for Europe’s sustainable prosperity and competitiveness’, which require innovative and agile governance models and tools to support transformative change within planetary boundaries.</p><p>R&amp;I supporting decision-making is a key enabler for the Vision for Agriculture and Food that aims to secure the long-term competitiveness and sustainability of the EU's farming and food systems within the boundaries of our planet, as well as to meet the objectives set out in the Common Agricultural Policy.</p><p>Besides, the R&amp;I supporting the bioeconomy, with a focus on bio-based solutions and the role of biotechnology, needs to be further strengthened, in line with the new EU Bioeconomy Strategy, the Communication on Biotechnology and Biomanufacturing and the Life Sciences Strategy.</p><p>There is also a need to unlock the potential of applied digital and data technologies to support sectors covered by this cluster in becoming more competitive, sustainable, resilient and inclusive in line with the evolving EU policies on cyber, data and data technologies and digital services, notably the European Data Strategy, the Europe’s Digital Decade Policy Programme, the AI Continent Action Plan and the upcoming EU digital strategy for agriculture. This destination will contribute to the development, support and take up of digital and data-based solutions to implement the European Green Deal, while fostering innovation and supporting start-ups, thereby supporting the EU Competitiveness Compass.</p><p>The destination supports the European Ocean Pact, aiming at bringing coherence across all EU policy areas linked to the ocean, supporting a resilient and healthy ocean and coastal areas and promoting the sustainable blue economy. In particular, land-sea connection areas are crucial for addressing the effects of climate change, such as sea level rise, coastal erosion, extreme events, and hydrological crises. When relevant, actions are encouraged to align with the EU Mission ‘Restore our Ocean and Waters’, leveraging its digital infrastructures (such as the Digital Twin Ocean), stakeholder networks, and knowledge systems to enhance governance, environmental observation, and policy-support tools across terrestrial and aquatic systems.</p><p>This destination implements research actions to address water challenges in the EU and support the European Water Resilience Strategy by advancing the capacity for proper management of water sources.</p><p>In line with the global approach on R&amp;I, this destination will foster and support regional and international initiatives, encourage international cooperation, contribute substantially to the implementation of key international treaties and to the work of various international bodies, assessments and other initiatives, and help achieve international commitments, notably under the Paris Agreement, the Kunming-Montreal Global Biodiversity Framework (GBF), and the Biodiversity Beyond National Jurisdiction (BBNJ) Agreement.</p><p>Knowledge and advice are key to improving competitiveness, sustainability and resilience. R&amp;I actions under this destination will support effective Agriculture Knowledge and Innovation Systems (AKIS) that are at the heart of the 2023-2027 CAP’s cross-cutting objective as a key mean to bridge the gap between science and practice. Synergies with the EU-CAP Network, and particularly the EIP-AGRI Operational Groups supported by the CAP, will be further exploited.</p><p>The European Research Area is further integrated, and the global efforts are well-coordinated for impact-oriented science on food, bioeconomy, natural resources, agriculture-forestry, aquaculture and fisheries, and environment.</p><p>The Destination supports unlocking the unique assets for research and innovation of the EU outermost regions, in line with the EU strategy for outermost regions<sup>[1]</sup>.</p><p><u>Expected Impact:</u> Proposals for topics under this destination should set out credible pathways to <strong>\"developing innovative governance models and tools enabling sustainability and resilience</strong>\", and more specifically to one or several of the following <strong>expected</strong> <strong>impacts</strong>:</p><ul level=\"0\"><li>improved evidence-based knowledge, tools and science-society-policy interfaces support effective policy mixes and multi-level governance that are capable of anticipating a changing world, enabling a just sustainable transition for all, engaging society at large and balancing economic, social and environmental goals;</li><li>competitiveness, sustainability and resilience of the economy are supported by more accessible and interoperable environmental observations and improved Earth Intelligence;</li><li>productivity is boosted and transformative changes required by the European Green Deal are facilitated, leaving no one behind, thanks to enhanced digital and data technologies, flows of existing and new knowledge, solutions and skills among actors and communities, as well as maximised synergies between initiatives.</li> </ul><p class=\"eui-u-font-s\">[1] COM(2022) Putting people first, securing sustainable and inclusive growth, unlocking the potential of the EU’s outermost regions.</p>"
+    ],
+    "typeOfMGAs": [
+     "43027846"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL6-2026-04"
+    ],
+    "callccm2Id": [
+     "50127747"
+    ],
+    "destinationGroup": [
+     "45355337"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "callTitle": [
+     "Call 04 - single stage (2026)"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>The successful proposal is expected to further contribute to the expected outcomes specified in topic HORIZON-CL6-2024-GOVERNANCE-02-01: European Partnership of Agriculture of Data, for continuation of the activities in line with already agreed outcomes. </p><p class=\"topicdescriptionkind\">Scope:</p><p>The objective of this action is to continue to provide support to the European partnership of Agriculture of Data identified in the Horizon Europe Strategic Plan 2021-2024 and first implemented under the topic HORIZON-CL6-2024-GOVERNANCE-02-01: European Partnership of Agriculture of Data, and in particular to fund additional activities (which may also be undertaken by additional partners) in view of its intended scope and duration, and in accordance with Article 24(2) of the Horizon Europe Regulation.</p><p>The consortium which applie"
+    ],
+    "identifier": [
+     "HORIZON-CL6-2026-04-GOVERNANCE-01"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2026-11-26T00:00:00.000+0000"
+    ],
+    "tags": [
+     "Artificial intelligence",
+     "Copernicus",
+     "Data",
+     "Digital",
+     "Digital transition",
+     "EO",
+     "Earth observation",
+     "FMIS"
+    ],
+    "cenTagsA": [
+     "TOPICS-012893",
+     "TOPICS-012972",
+     "TOPICS-058307",
+     "TOPICS-058308",
+     "TOPICS-058309",
+     "TOPICS-058310",
+     "TOPICS-058311",
+     "TOPICS-016289",
+     "TOPICS-026920",
+     "TOPICS-000183",
+     "TOPICS-021445",
+     "TOPICS-001241",
+     "TOPICS-002882",
+     "TOPICS-058312",
+     "TOPICS-058313",
+     "TOPICS-022821",
+     "TOPICS-058314",
+     "TOPICS-008223",
+     "TOPICS-008768",
+     "TOPICS-057329",
+     "TOPICS-006141",
+     "TOPICS-058315",
+     "TOPICS-005558",
+     "TOPICS-058316",
+     "TOPICS-006431",
+     "TOPICS-015022",
+     "TOPICS-058317",
+     "TOPICS-044464",
+     "TOPICS-058318",
+     "TOPICS-001362",
+     "TOPICS-055408",
+     "TOPICS-006040",
+     "TOPICS-005136",
+     "TOPICS-000299",
+     "TOPICS-007634",
+     "TOPICS-003258",
+     "TOPICS-009337",
+     "TOPICS-024818",
+     "TOPICS-005534"
+    ],
+    "destinationDescription": [
+     "Innovative governance, environmental observations and digital solutions in support of the Green Deal (2026-27)"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-COFUND HORIZON Programme Cofund Actions\",\"typeOfMGA\":[{\"id\":43027846,\"abbreviation\":\"HORIZON-AG\",\"description\":\"HORIZON Action Grant Budget-Based\"}]}],\"status\":{\"id\":31094501,\"abbreviation\":\"Forthcoming\",\"description\":\"Forthcoming\"},\"plannedOpeningDate\":\"2026-08-25\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2026-11-26\"]}]"
+    ],
+    "startDate": [
+     "2026-08-25T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "destination": [
+     "48080657"
+    ],
+    "title": [
+     "Additional activities for the European Partnership of Agriculture of Data"
+    ],
+    "ccm2Id": [
+     "50127691"
+    ],
+    "REFERENCE": [
+     "50127691TOPICSen"
+    ],
+    "programmeDivision": [
+     "43121578",
+     "43121568",
+     "43121563",
+     "43108541",
+     "43108390"
+    ],
+    "crossCuttingPriorities": [
+     "DigitalAgenda",
+     "AI",
+     "PART-COFUND"
+    ],
+    "typesOfAction": [
+     "HORIZON Programme Cofund Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2027\",\"2026\"],\"budgetTopicActionMap\":{\"112856\":[{\"action\":\"HORIZON-CL6-2026-04-GOVERNANCE-01 - HORIZON-COFUND HORIZON Programme Cofund Actions\",\"expectedGrants\":1,\"minContribution\":60000000,\"maxContribution\":60000000,\"budgetYearMap\":{\"2026\":\"23000000\",\"2027\":\"37000000\"},\"plannedOpeningDate\":\"2026-08-25\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2026-11-26\"]}]}}"
+    ],
+    "specificObjective": []
+   },
+   "citation": "Additional activities for the European Partnership of Agriculture of Data. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "50147304TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "Approaches and tools for security in software and hardware development and assessment",
+   "weight": 4.0,
+   "groupById": "1",
+   "accessRestriction": false,
+   "checksum": "A16102B4579A97CE4EEA1A3B580AB6C38BC9574E64F9D0AE50B861ECE91DBEB5",
+   "metadata": {
+    "es_SortDate": [
+     "2026-03-03T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-CL3-2026-02-CS-ECCC-01",
+     "HORIZON-CL3-2026-02-CS-ECCC",
+     "Computer hardware and architecture",
+     "Cybersecurity Domains",
+     "Cybersecurity Research Domains ",
+     "Design-Manufacturing",
+     "Hardware technology (RFID, chips, sensors, networking, etc.)",
+     "Identification of the impact of hardware and software changes on the management of Information Security"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "Approaches and tools for security in software and hardware development and assessment"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "callIdentifier": [
+     "HORIZON-CL3-2026-02-CS-ECCC"
+    ],
+    "ccm2Id": [
+     "50147304"
+    ],
+    "callccm2Id": [
+     "50147368"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "50147304TOPICSen"
+    ],
+    "callTitle": [
+     "Indirectly Managed Action by the ECCC (2026)"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>Proposals are expected to contribute to one or more of the following:</p><ul level=\"0\"><li>Enhanced security frameworks for both hardware and software supply chains, building on root-of-trust architectures and secure lifecycle management;</li><li>Secure and trusted chip architectures for next-generation computing and networking systems;</li><li>Integrated security-by-design approaches in software development, aimed to be aligned with relevant regulatory requirements;</li><li>Security testing methodologies, including formal verification approaches and AI-driven security testing methodologies;</li><li>Standardised methodologies for hardware security assessment, also contributing to cybersecurity certification.</li> </ul><p class=\"topicdescriptionkind\">Scope:</p><p>The increasing complexity and globalisation of software and hardware su"
+    ],
+    "identifier": [
+     "HORIZON-CL3-2026-02-CS-ECCC-01"
+    ],
+    "programmeDivision": [
+     "43108390",
+     "43108541",
+     "43118971",
+     "43120185"
+    ],
+    "crossCuttingPriorities": [
+     "AI",
+     "DigitalAgenda"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2026-09-15T00:00:00.000+0000"
+    ],
+    "typesOfAction": [
+     "HORIZON  Research and Innovation Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01"
+    ],
+    "tags": [
+     "AI",
+     "automated detection technique",
+     "automation",
+     "blockchain",
+     "certification",
+     "chip manufacturing  processes",
+     "cryptographic co-processors",
+     "multi-chips modules (chiplets)"
+    ],
+    "cenTagsA": [
+     "TOPICS-030462",
+     "TOPICS-030463",
+     "TOPICS-030464",
+     "TOPICS-030465",
+     "TOPICS-030466",
+     "TOPICS-000713",
+     "TOPICS-001361",
+     "TOPICS-002028",
+     "TOPICS-030467",
+     "TOPICS-030468",
+     "TOPICS-030469",
+     "TOPICS-030470",
+     "TOPICS-030416",
+     "TOPICS-030471",
+     "TOPICS-030472",
+     "TOPICS-030473",
+     "TOPICS-030474",
+     "TOPICS-030475",
+     "TOPICS-030301",
+     "TOPICS-030476",
+     "TOPICS-030477",
+     "TOPICS-002891",
+     "TOPICS-002606",
+     "TOPICS-030478",
+     "TOPICS-030479",
+     "TOPICS-025137",
+     "TOPICS-008908",
+     "TOPICS-003335",
+     "TOPICS-013401",
+     "TOPICS-002371",
+     "TOPICS-008912",
+     "TOPICS-030480",
+     "TOPICS-030481",
+     "TOPICS-030482",
+     "TOPICS-022311",
+     "TOPICS-030483",
+     "TOPICS-009434",
+     "TOPICS-006023"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-RIA HORIZON  Research and Innovation Actions\",\"typeOfMGA\":[{\"id\":43027849,\"abbreviation\":\"HORIZON-AG-LS\",\"description\":\"HORIZON Lump Sum Grant\"}]}],\"status\":{\"id\":31094502,\"abbreviation\":\"Open\",\"description\":\"Open\"},\"plannedOpeningDate\":\"2026-03-03\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2026-09-15\"]}]"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2026\"],\"budgetTopicActionMap\":{\"113179\":[{\"action\":\"HORIZON-CL3-2026-02-CS-ECCC-03 - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":4,\"minContribution\":2000000,\"maxContribution\":3000000,\"budgetYearMap\":{\"2026\":\"15000000\"},\"plannedOpeningDate\":\"2026-03-03\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2026-09-15\"]}],\"113178\":[{\"action\":\"HORIZON-CL3-2026-02-CS-ECCC-01 - HORIZON-RIA HORIZON  Research and Innovation Actions\",\"expectedGrants\":5,\"minContribution\":3000000,\"maxContribution\":4000000,\"budgetYearMap\":{\"2026\":\"20000000\"},\"plannedOpeningDa"
+    ],
+    "startDate": [
+     "2026-03-03T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "specificObjective": [],
+    "status": [
+     "31094502"
+    ]
+   },
+   "citation": "Approaches and tools for security in software and hardware development and assessment. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "51176725TOPICSen",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-02",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "SEDIA",
+   "database": "SEDIA",
+   "summary": "SSbD bio-based alternatives for fertilising and/or crop protection products",
+   "weight": 4.0,
+   "groupById": "1",
+   "accessRestriction": false,
+   "checksum": "26FBD0224B2334B3EA603476EDF40B1BEBB586BD61AB5C7D2DEC1BCE70D72876",
+   "metadata": {
+    "es_SortDate": [
+     "2026-04-23T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "HORIZON-JU-CBE-2026-IAFlag-02",
+     "HORIZON-JU-CBE-2026",
+     "Agricultural biotechnology",
+     "Agriculture related to crop production, soil biology and cultivation, applied plant biology",
+     "Agronomy",
+     "Fertilisation"
+    ],
+    "sortStatus": [
+     "1"
+    ],
+    "language": [
+     "en"
+    ],
+    "title": [
+     "SSbD bio-based alternatives for fertilising and/or crop protection products"
+    ],
+    "type": [
+     "1"
+    ],
+    "focusArea": [],
+    "typeOfMGAs": [
+     "43027846"
+    ],
+    "callIdentifier": [
+     "HORIZON-JU-CBE-2026"
+    ],
+    "ccm2Id": [
+     "51176725"
+    ],
+    "callccm2Id": [
+     "51176965"
+    ],
+    "DATASOURCE": [
+     "SEDIA"
+    ],
+    "REFERENCE": [
+     "51176725TOPICSen"
+    ],
+    "callTitle": [
+     "HORIZON-JU-CBE-2026"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "descriptionByte": [
+     "<p class=\"topicdescriptionkind\">Expected Outcome:</p><p>Successful proposals will contribute to the updated EU Bioeconomy Strategy, Farm to Fork Strategy, the Horizon Europe Mission ‘A Soil Deal for Europe’, in particular the objectives: ‘Reduce soil pollution and enhance restoration’, the European Chemical Industry Action Plan as well as the Clean Industrial Deal.</p><p>Projects results are expected to contribute to the following expected outcomes:</p><ul level=\"0\"><li>Full industrial scale biorefinery and related value chain(s) for the sustainable production of bio-based fertilisers and/or crop protection solutions.</li><li>Increased availability of cost-competitive and SSbD bio-based alternatives for fertilising and/or crop protection products with suitable agronomic efficacy.</li><li>Reduced reliance on synthetic/mineral agricultural chemical products.</li><li>Increased EU strategic "
+    ],
+    "identifier": [
+     "HORIZON-JU-CBE-2026-IAFlag-02"
+    ],
+    "programmeDivision": [
+     "43108541",
+     "43121563",
+     "43121593",
+     "43108390"
+    ],
+    "crossCuttingPriorities": [
+     "SocietalEngagement",
+     "AI",
+     "DigitalAgenda"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2026-09-22T00:00:00.000+0000"
+    ],
+    "typesOfAction": [
+     "HORIZON JU Innovation Actions"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-02"
+    ],
+    "tags": [
+     "agricultural biotechnology",
+     "bio-based crop protection solutions",
+     "bio-based fertilisers",
+     "bioactive molecules",
+     "biorefineries",
+     "farming systems",
+     "safe and sustainable by design",
+     "STEP-Biotech"
+    ],
+    "cenTagsA": [
+     "TOPICS-057716",
+     "TOPICS-057717",
+     "TOPICS-057718",
+     "TOPICS-045073",
+     "TOPICS-007710",
+     "TOPICS-002380",
+     "TOPICS-005749",
+     "TOPICS-022196",
+     "TOPICS-057719",
+     "TOPICS-008366",
+     "TOPICS-009524",
+     "TOPICS-057720",
+     "TOPICS-002172",
+     "TOPICS-010320",
+     "TOPICS-002796"
+    ],
+    "actions": [
+     "[{\"types\":[{\"typeOfAction\":\"HORIZON-JU-IA HORIZON JU Innovation Actions\",\"typeOfMGA\":[{\"id\":43027846,\"abbreviation\":\"HORIZON-AG\",\"description\":\"HORIZON Action Grant Budget-Based\"}]}],\"status\":{\"id\":31094502,\"abbreviation\":\"Open\",\"description\":\"Open\"},\"plannedOpeningDate\":\"2026-04-23\",\"submissionProcedure\":{\"id\":31094504,\"abbreviation\":\"single-stage\",\"description\":\"single-stage\"},\"deadlineDates\":[\"2026-09-22\"]}]"
+    ],
+    "allowPartnerSearch": [
+     "true"
+    ],
+    "budgetOverview": [
+     "{\"budgetYearsColumns\":[\"2026\"],\"budgetTopicActionMap\":{\"114622\":[{\"action\":\"HORIZON-JU-CBE-2026-CSA-01 - HORIZON-JU-CSA HORIZON JU Coordination and Support Actions\",\"expectedGrants\":1,\"minContribution\":1200000,\"maxContribution\":1200000,\"budgetYearMap\":{\"2026\":\"170760699\"},\"plannedOpeningDate\":\"2026-04-23\",\"deadlineModel\":\"single-stage\",\"deadlineDates\":[\"2026-09-22\"]},{\"action\":\"HORIZON-JU-CBE-2026-IAFlag-03 - HORIZON-JU-IA HORIZON JU Innovation Actions\",\"expectedGrants\":1,\"minContribution\":20000000,\"maxContribution\":20000000,\"budgetYearMap\":{\"2026\":\"170760699\"},\"plannedOpeningDate\":\"2026-04-23"
+    ],
+    "startDate": [
+     "2026-04-23T00:00:00.000+0000"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "specificObjective": [],
+    "status": [
+     "31094502"
+    ]
+   },
+   "citation": "SSbD bio-based alternatives for fertilising and/or crop protection products. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-CBE-2026-IAFlag-02"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "45747793HORIZONCoordinationandSupportActions1701820800000",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-INFRA-2024-EOSC-01-03.json",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "",
+   "summary": "Enabling a network of EOSC federated and trustworthy repositories and enhancing the framework of generic and discipline specific services for data and other research digital objects",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "80BE128A58420F7F10768A88D764AD0F14FE1B4547D92064828D19355CE5E706",
+   "metadata": {
+    "es_SortDate": [
+     "2023-12-06T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "[\"Co-programmed European Partnerships\",\"eInfrastructure\",\"EOSC and FAIR data\",\"Digital services\",\"Digital Agenda\",\"open science\",\"FAIR data\"]"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "ccmTags2": [
+     "HCCM_31073707",
+     "HCCM_31073711",
+     "HTAG_000007623",
+     "HCCM_31057057",
+     "HTITLE_000015531",
+     "MTAGS_000010645",
+     "MTAGS_000075669",
+     "MTAGS_000008599",
+     "MTAGS_000033618",
+     "MTAGS_000100338",
+     "MTAGS_000038152",
+     "MTAGS_000054618",
+     "MTAGS_000019998",
+     "MTAGS_000077946",
+     "MTAGS_000070769",
+     "MTAGS_000072677",
+     "MTAGS_000066284",
+     "MTAGS_000076192",
+     "MTAGS_000033450",
+     "MTAGS_000012183",
+     "MTAGS_000070355",
+     "MTAGS_000084447",
+     "MTAGS_000066190",
+     "MTAGS_000034306",
+     "MTAGS_000093786",
+     "MTAGS_000095130",
+     "MTAGS_000029998",
+     "MTAGS_000016541",
+     "MTAGS_000008586",
+     "MTAGS_000083680",
+     "MTAGS_000101686",
+     "MTAGS_000085140",
+     "MTAGS_000039138",
+     "MTAGS_000070769",
+     "MTAGS_000026947",
+     "MTAGS_000085140",
+     "MTAGS_000071077",
+     "MTAGS_000066192",
+     "MTAGS_000063539",
+     "MTAGS_000039797",
+     "MTAGS_000030261",
+     "MTAGS_000090360",
+     "MTAGS_000067571",
+     "MTAGS_000080380",
+     "MTAGS_000099386",
+     "MTAGS_000007938",
+     "MTAGS_000092891",
+     "MTAGS_000024468",
+     "MTAGS_000055574",
+     "MTAGS_000046433",
+     "MTAGS_000024750",
+     "MTAGS_000095764",
+     "MTAGS_000040339",
+     "MTAGS_000027680",
+     "MTAGS_000084882",
+     "MTAGS_000101073",
+     "MTAGS_000083680",
+     "MTAGS_000071077",
+     "MTAGS_000030261",
+     "MTAGS_000050279",
+     "MTAGS_000071896",
+     "MTAGS_000093786",
+     "MTAGS_000032568",
+     "MTAGS_000053123",
+     "MTAGS_000022974",
+     "MTAGS_000015973",
+     "MTAGS_000014598",
+     "MTAGS_000052575",
+     "MTAGS_000083680",
+     "MTAGS_000069836",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000054822",
+     "MTAGS_000072677",
+     "MTAGS_000010645",
+     "MTAGS_000000805",
+     "MTAGS_000072034",
+     "MTAGS_000071077",
+     "MTAGS_000012825",
+     "MTAGS_000024308",
+     "MTAGS_000050761",
+     "MTAGS_000092983"
+    ],
+    "destination": [
+     "44798982"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "title": [
+     "Enabling a network of EOSC federated and trustworthy repositories and enhancing the framework of generic and discipline specific services for data and other research digital objects"
+    ],
+    "focusArea": [],
+    "cftId": [
+     "0"
+    ],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "callIdentifier": [
+     "HORIZON-INFRA-2024-EOSC-01"
+    ],
+    "ccm2Id": [
+     "45747793"
+    ],
+    "callccm2Id": [
+     "45748039"
+    ],
+    "destinationGroup": [
+     "45355226"
+    ],
+    "esIN_ccmTags": [
+     "HCCM_31073707",
+     "HCCM_31073711",
+     "HTAG_000007623",
+     "HCCM_31057057",
+     "HTITLE_000015531",
+     "MTAGS_000010645",
+     "MTAGS_000075669",
+     "MTAGS_000008599",
+     "MTAGS_000033618",
+     "MTAGS_000100338",
+     "MTAGS_000038152",
+     "MTAGS_000054618",
+     "MTAGS_000019998",
+     "MTAGS_000077946",
+     "MTAGS_000070769",
+     "MTAGS_000072677",
+     "MTAGS_000066284",
+     "MTAGS_000076192",
+     "MTAGS_000033450",
+     "MTAGS_000012183",
+     "MTAGS_000070355",
+     "MTAGS_000084447",
+     "MTAGS_000066190",
+     "MTAGS_000034306",
+     "MTAGS_000093786",
+     "MTAGS_000095130",
+     "MTAGS_000029998",
+     "MTAGS_000016541",
+     "MTAGS_000008586",
+     "MTAGS_000083680",
+     "MTAGS_000101686",
+     "MTAGS_000085140",
+     "MTAGS_000039138",
+     "MTAGS_000070769",
+     "MTAGS_000026947",
+     "MTAGS_000085140",
+     "MTAGS_000071077",
+     "MTAGS_000066192",
+     "MTAGS_000063539",
+     "MTAGS_000039797",
+     "MTAGS_000030261",
+     "MTAGS_000090360",
+     "MTAGS_000067571",
+     "MTAGS_000080380",
+     "MTAGS_000099386",
+     "MTAGS_000007938",
+     "MTAGS_000092891",
+     "MTAGS_000024468",
+     "MTAGS_000055574",
+     "MTAGS_000046433",
+     "MTAGS_000024750",
+     "MTAGS_000095764",
+     "MTAGS_000040339",
+     "MTAGS_000027680",
+     "MTAGS_000084882",
+     "MTAGS_000101073",
+     "MTAGS_000083680",
+     "MTAGS_000071077",
+     "MTAGS_000030261",
+     "MTAGS_000050279",
+     "MTAGS_000071896",
+     "MTAGS_000093786",
+     "MTAGS_000032568",
+     "MTAGS_000053123",
+     "MTAGS_000022974",
+     "MTAGS_000015973",
+     "MTAGS_000014598",
+     "MTAGS_000052575",
+     "MTAGS_000083680",
+     "MTAGS_000069836",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000054822",
+     "MTAGS_000072677",
+     "MTAGS_000010645",
+     "MTAGS_000000805",
+     "MTAGS_000072034",
+     "MTAGS_000071077",
+     "MTAGS_000012825",
+     "MTAGS_000024308",
+     "MTAGS_000050761",
+     "MTAGS_000092983"
+    ],
+    "DATASOURCE": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "identifier": [
+     "HORIZON-INFRA-2024-EOSC-01-03"
+    ],
+    "programmeDivision": [
+     "43108518",
+     "43108514",
+     "43108394"
+    ],
+    "crossCuttingPriorities": [
+     "PART-COPROGR",
+     "EoscAndFairData",
+     "DigitalAgenda"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2024-03-12T17:00:00.000+0000"
+    ],
+    "ccmTags": [
+     "HCCM_31073707",
+     "HCCM_31073711",
+     "HTAG_000007623",
+     "HCCM_31057057",
+     "HTITLE_000015531",
+     "MTAGS_000010645",
+     "MTAGS_000075669",
+     "MTAGS_000008599",
+     "MTAGS_000033618",
+     "MTAGS_000100338",
+     "MTAGS_000038152",
+     "MTAGS_000054618",
+     "MTAGS_000019998",
+     "MTAGS_000077946",
+     "MTAGS_000070769",
+     "MTAGS_000072677",
+     "MTAGS_000066284",
+     "MTAGS_000076192",
+     "MTAGS_000033450",
+     "MTAGS_000012183",
+     "MTAGS_000070355",
+     "MTAGS_000084447",
+     "MTAGS_000066190",
+     "MTAGS_000034306",
+     "MTAGS_000093786",
+     "MTAGS_000095130",
+     "MTAGS_000029998",
+     "MTAGS_000016541",
+     "MTAGS_000008586",
+     "MTAGS_000083680",
+     "MTAGS_000101686",
+     "MTAGS_000085140",
+     "MTAGS_000039138",
+     "MTAGS_000070769",
+     "MTAGS_000026947",
+     "MTAGS_000085140",
+     "MTAGS_000071077",
+     "MTAGS_000066192",
+     "MTAGS_000063539",
+     "MTAGS_000039797",
+     "MTAGS_000030261",
+     "MTAGS_000090360",
+     "MTAGS_000067571",
+     "MTAGS_000080380",
+     "MTAGS_000099386",
+     "MTAGS_000007938",
+     "MTAGS_000092891",
+     "MTAGS_000024468",
+     "MTAGS_000055574",
+     "MTAGS_000046433",
+     "MTAGS_000024750",
+     "MTAGS_000095764",
+     "MTAGS_000040339",
+     "MTAGS_000027680",
+     "MTAGS_000084882",
+     "MTAGS_000101073",
+     "MTAGS_000083680",
+     "MTAGS_000071077",
+     "MTAGS_000030261",
+     "MTAGS_000050279",
+     "MTAGS_000071896",
+     "MTAGS_000093786",
+     "MTAGS_000032568",
+     "MTAGS_000053123",
+     "MTAGS_000022974",
+     "MTAGS_000015973",
+     "MTAGS_000014598",
+     "MTAGS_000052575",
+     "MTAGS_000083680",
+     "MTAGS_000069836",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000054822",
+     "MTAGS_000072677",
+     "MTAGS_000010645",
+     "MTAGS_000000805",
+     "MTAGS_000072034",
+     "MTAGS_000071077",
+     "MTAGS_000012825",
+     "MTAGS_000024308",
+     "MTAGS_000050761",
+     "MTAGS_000092983"
+    ],
+    "typesOfAction": [
+     "HORIZON Coordination and Support Actions"
+    ],
+    "corporate-search-version": [
+     "102"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-INFRA-2024-EOSC-01-03.json"
+    ],
+    "datasource": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "startDate": [
+     "2023-12-06T00:00:00.000+0000"
+    ],
+    "esIN_ccmTags2": [
+     "TTL_00166604",
+     "TCK_166894",
+     "TCK_166895",
+     "TCK_166896",
+     "TCK_166897",
+     "TCK_166898",
+     "TCK_166899",
+     "TCK_166900",
+     "TCK_166901",
+     "TCK_166902",
+     "TCK_166903",
+     "TTG_00011857",
+     "TTG_00001717"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ]
+   },
+   "citation": "Enabling a network of EOSC federated and trustworthy repositories and enhancing the framework of generic and discipline specific services for data and other research digital objects. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-INFRA-2024-EOSC-01-03.json"
+  },
+  {
+   "apiVersion": "2.151",
+   "reference": "45747793HORIZONCoordinationandSupportActions1701820800000",
+   "url": "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-INFRA-2024-EOSC-01-03.json",
+   "contentType": "text/plain",
+   "language": "en",
+   "databaseLabel": "",
+   "summary": "Enabling a network of EOSC federated and trustworthy repositories and enhancing the framework of generic and discipline specific services for data and other research digital objects",
+   "weight": 4.0,
+   "groupById": "2",
+   "accessRestriction": false,
+   "checksum": "80BE128A58420F7F10768A88D764AD0F14FE1B4547D92064828D19355CE5E706",
+   "metadata": {
+    "es_SortDate": [
+     "2023-12-06T00:00:00.000+0000"
+    ],
+    "keywords": [
+     "[\"Co-programmed European Partnerships\",\"eInfrastructure\",\"EOSC and FAIR data\",\"Digital services\",\"Digital Agenda\",\"open science\",\"FAIR data\"]"
+    ],
+    "sortStatus": [
+     "2"
+    ],
+    "ccmTags2": [
+     "HCCM_31073707",
+     "HCCM_31073711",
+     "HTAG_000007623",
+     "HCCM_31057057",
+     "HTITLE_000015531",
+     "MTAGS_000010645",
+     "MTAGS_000075669",
+     "MTAGS_000008599",
+     "MTAGS_000033618",
+     "MTAGS_000100338",
+     "MTAGS_000038152",
+     "MTAGS_000054618",
+     "MTAGS_000019998",
+     "MTAGS_000077946",
+     "MTAGS_000070769",
+     "MTAGS_000072677",
+     "MTAGS_000066284",
+     "MTAGS_000076192",
+     "MTAGS_000033450",
+     "MTAGS_000012183",
+     "MTAGS_000070355",
+     "MTAGS_000084447",
+     "MTAGS_000066190",
+     "MTAGS_000034306",
+     "MTAGS_000093786",
+     "MTAGS_000095130",
+     "MTAGS_000029998",
+     "MTAGS_000016541",
+     "MTAGS_000008586",
+     "MTAGS_000083680",
+     "MTAGS_000101686",
+     "MTAGS_000085140",
+     "MTAGS_000039138",
+     "MTAGS_000070769",
+     "MTAGS_000026947",
+     "MTAGS_000085140",
+     "MTAGS_000071077",
+     "MTAGS_000066192",
+     "MTAGS_000063539",
+     "MTAGS_000039797",
+     "MTAGS_000030261",
+     "MTAGS_000090360",
+     "MTAGS_000067571",
+     "MTAGS_000080380",
+     "MTAGS_000099386",
+     "MTAGS_000007938",
+     "MTAGS_000092891",
+     "MTAGS_000024468",
+     "MTAGS_000055574",
+     "MTAGS_000046433",
+     "MTAGS_000024750",
+     "MTAGS_000095764",
+     "MTAGS_000040339",
+     "MTAGS_000027680",
+     "MTAGS_000084882",
+     "MTAGS_000101073",
+     "MTAGS_000083680",
+     "MTAGS_000071077",
+     "MTAGS_000030261",
+     "MTAGS_000050279",
+     "MTAGS_000071896",
+     "MTAGS_000093786",
+     "MTAGS_000032568",
+     "MTAGS_000053123",
+     "MTAGS_000022974",
+     "MTAGS_000015973",
+     "MTAGS_000014598",
+     "MTAGS_000052575",
+     "MTAGS_000083680",
+     "MTAGS_000069836",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000054822",
+     "MTAGS_000072677",
+     "MTAGS_000010645",
+     "MTAGS_000000805",
+     "MTAGS_000072034",
+     "MTAGS_000071077",
+     "MTAGS_000012825",
+     "MTAGS_000024308",
+     "MTAGS_000050761",
+     "MTAGS_000092983"
+    ],
+    "destination": [
+     "44798982"
+    ],
+    "language": [
+     "en"
+    ],
+    "type": [
+     "1"
+    ],
+    "title": [
+     "Enabling a network of EOSC federated and trustworthy repositories and enhancing the framework of generic and discipline specific services for data and other research digital objects"
+    ],
+    "focusArea": [],
+    "cftId": [
+     "0"
+    ],
+    "typeOfMGAs": [
+     "43027849"
+    ],
+    "callIdentifier": [
+     "HORIZON-INFRA-2024-EOSC-01"
+    ],
+    "ccm2Id": [
+     "45747793"
+    ],
+    "callccm2Id": [
+     "45748039"
+    ],
+    "destinationGroup": [
+     "45355226"
+    ],
+    "esIN_ccmTags": [
+     "HCCM_31073707",
+     "HCCM_31073711",
+     "HTAG_000007623",
+     "HCCM_31057057",
+     "HTITLE_000015531",
+     "MTAGS_000010645",
+     "MTAGS_000075669",
+     "MTAGS_000008599",
+     "MTAGS_000033618",
+     "MTAGS_000100338",
+     "MTAGS_000038152",
+     "MTAGS_000054618",
+     "MTAGS_000019998",
+     "MTAGS_000077946",
+     "MTAGS_000070769",
+     "MTAGS_000072677",
+     "MTAGS_000066284",
+     "MTAGS_000076192",
+     "MTAGS_000033450",
+     "MTAGS_000012183",
+     "MTAGS_000070355",
+     "MTAGS_000084447",
+     "MTAGS_000066190",
+     "MTAGS_000034306",
+     "MTAGS_000093786",
+     "MTAGS_000095130",
+     "MTAGS_000029998",
+     "MTAGS_000016541",
+     "MTAGS_000008586",
+     "MTAGS_000083680",
+     "MTAGS_000101686",
+     "MTAGS_000085140",
+     "MTAGS_000039138",
+     "MTAGS_000070769",
+     "MTAGS_000026947",
+     "MTAGS_000085140",
+     "MTAGS_000071077",
+     "MTAGS_000066192",
+     "MTAGS_000063539",
+     "MTAGS_000039797",
+     "MTAGS_000030261",
+     "MTAGS_000090360",
+     "MTAGS_000067571",
+     "MTAGS_000080380",
+     "MTAGS_000099386",
+     "MTAGS_000007938",
+     "MTAGS_000092891",
+     "MTAGS_000024468",
+     "MTAGS_000055574",
+     "MTAGS_000046433",
+     "MTAGS_000024750",
+     "MTAGS_000095764",
+     "MTAGS_000040339",
+     "MTAGS_000027680",
+     "MTAGS_000084882",
+     "MTAGS_000101073",
+     "MTAGS_000083680",
+     "MTAGS_000071077",
+     "MTAGS_000030261",
+     "MTAGS_000050279",
+     "MTAGS_000071896",
+     "MTAGS_000093786",
+     "MTAGS_000032568",
+     "MTAGS_000053123",
+     "MTAGS_000022974",
+     "MTAGS_000015973",
+     "MTAGS_000014598",
+     "MTAGS_000052575",
+     "MTAGS_000083680",
+     "MTAGS_000069836",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000054822",
+     "MTAGS_000072677",
+     "MTAGS_000010645",
+     "MTAGS_000000805",
+     "MTAGS_000072034",
+     "MTAGS_000071077",
+     "MTAGS_000012825",
+     "MTAGS_000024308",
+     "MTAGS_000050761",
+     "MTAGS_000092983"
+    ],
+    "DATASOURCE": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "frameworkProgramme": [
+     "43108390"
+    ],
+    "identifier": [
+     "HORIZON-INFRA-2024-EOSC-01-03"
+    ],
+    "programmeDivision": [
+     "43108518",
+     "43108514",
+     "43108394"
+    ],
+    "crossCuttingPriorities": [
+     "PART-COPROGR",
+     "EoscAndFairData",
+     "DigitalAgenda"
+    ],
+    "programmePeriod": [
+     "2021 - 2027"
+    ],
+    "deadlineDate": [
+     "2024-03-12T17:00:00.000+0000"
+    ],
+    "ccmTags": [
+     "HCCM_31073707",
+     "HCCM_31073711",
+     "HTAG_000007623",
+     "HCCM_31057057",
+     "HTITLE_000015531",
+     "MTAGS_000010645",
+     "MTAGS_000075669",
+     "MTAGS_000008599",
+     "MTAGS_000033618",
+     "MTAGS_000100338",
+     "MTAGS_000038152",
+     "MTAGS_000054618",
+     "MTAGS_000019998",
+     "MTAGS_000077946",
+     "MTAGS_000070769",
+     "MTAGS_000072677",
+     "MTAGS_000066284",
+     "MTAGS_000076192",
+     "MTAGS_000033450",
+     "MTAGS_000012183",
+     "MTAGS_000070355",
+     "MTAGS_000084447",
+     "MTAGS_000066190",
+     "MTAGS_000034306",
+     "MTAGS_000093786",
+     "MTAGS_000095130",
+     "MTAGS_000029998",
+     "MTAGS_000016541",
+     "MTAGS_000008586",
+     "MTAGS_000083680",
+     "MTAGS_000101686",
+     "MTAGS_000085140",
+     "MTAGS_000039138",
+     "MTAGS_000070769",
+     "MTAGS_000026947",
+     "MTAGS_000085140",
+     "MTAGS_000071077",
+     "MTAGS_000066192",
+     "MTAGS_000063539",
+     "MTAGS_000039797",
+     "MTAGS_000030261",
+     "MTAGS_000090360",
+     "MTAGS_000067571",
+     "MTAGS_000080380",
+     "MTAGS_000099386",
+     "MTAGS_000007938",
+     "MTAGS_000092891",
+     "MTAGS_000024468",
+     "MTAGS_000055574",
+     "MTAGS_000046433",
+     "MTAGS_000024750",
+     "MTAGS_000095764",
+     "MTAGS_000040339",
+     "MTAGS_000027680",
+     "MTAGS_000084882",
+     "MTAGS_000101073",
+     "MTAGS_000083680",
+     "MTAGS_000071077",
+     "MTAGS_000030261",
+     "MTAGS_000050279",
+     "MTAGS_000071896",
+     "MTAGS_000093786",
+     "MTAGS_000032568",
+     "MTAGS_000053123",
+     "MTAGS_000022974",
+     "MTAGS_000015973",
+     "MTAGS_000014598",
+     "MTAGS_000052575",
+     "MTAGS_000083680",
+     "MTAGS_000069836",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000000556",
+     "MTAGS_000054822",
+     "MTAGS_000072677",
+     "MTAGS_000010645",
+     "MTAGS_000000805",
+     "MTAGS_000072034",
+     "MTAGS_000071077",
+     "MTAGS_000012825",
+     "MTAGS_000024308",
+     "MTAGS_000050761",
+     "MTAGS_000092983"
+    ],
+    "typesOfAction": [
+     "HORIZON Coordination and Support Actions"
+    ],
+    "corporate-search-version": [
+     "102"
+    ],
+    "url": [
+     "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-INFRA-2024-EOSC-01-03.json"
+    ],
+    "datasource": [
+     "SEDIA_PRD_CENTRICITY"
+    ],
+    "startDate": [
+     "2023-12-06T00:00:00.000+0000"
+    ],
+    "esIN_ccmTags2": [
+     "TTL_00166604",
+     "TCK_166894",
+     "TCK_166895",
+     "TCK_166896",
+     "TCK_166897",
+     "TCK_166898",
+     "TCK_166899",
+     "TCK_166900",
+     "TCK_166901",
+     "TCK_166902",
+     "TCK_166903",
+     "TTG_00011857",
+     "TTG_00001717"
+    ],
+    "deadlineModel": [
+     "single-stage"
+    ],
+    "status": [
+     "31094501"
+    ]
+   },
+   "citation": "Enabling a network of EOSC federated and trustworthy repositories and enhancing the framework of generic and discipline specific services for data and other research digital objects. Available at: https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/HORIZON-INFRA-2024-EOSC-01-03.json"
+  }
+ ]
+}

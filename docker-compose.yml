@@ -1,0 +1,76 @@
+networks:
+  frontend:
+    external: true
+  app:
+    driver: bridge
+    internal: false
+
+services:
+  # Service name is "agent" everywhere, including the dev/ overrides. Keeping one
+  # name matters: an override file naming a *different* service silently adds a
+  # second, buildless service instead of overriding this one.
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${TARGET:-dev}
+    networks:
+      - app
+      - frontend
+    ports:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      API_KEY: ${API_KEY:?}
+      AGENT_MODEL: ${AGENT_MODEL:-AarhusAI-default-v2}
+      AGENT_API_BASE_URL: ${AGENT_API_BASE_URL:-http://litellm.itkdev.dk/v1}
+      AGENT_API_KEY: ${AGENT_API_KEY:-}
+      AGENT_TIMEOUT: ${AGENT_TIMEOUT:-60}
+      PORTAL_SEARCH_URL: ${PORTAL_SEARCH_URL:-https://api.tech.ec.europa.eu/search-api/prod/rest/search}
+      PORTAL_API_KEY: ${PORTAL_API_KEY:-SEDIA}
+      # Which language's copy of each topic to retrieve, as a JSON array. The
+      # index holds every topic in up to 24 languages; "en" has the widest
+      # coverage (970 topics vs 536 for "da").
+      PORTAL_LANGUAGES: ${PORTAL_LANGUAGES:-["en"]}
+      PORTAL_CACHE_TTL: ${PORTAL_CACHE_TTL:-21600}
+      # Host-header allowlist for the /mcp endpoint. Override with your proxy's
+      # forwarded Host (JSON array); the default is valid JSON so an unset var
+      # doesn't break pydantic-settings list parsing.
+      MCP_ALLOWED_HOSTS: ${MCP_ALLOWED_HOSTS:-["eu-funding-tenders-portal-agent:*","localhost:*"]}
+      DEBUG: ${DEBUG:-false}
+      RUFF_CACHE_DIR: /tmp/ruff_cache
+    volumes:
+      - ./app:/app/app
+      - ./tests:/app/tests
+      - ./pyproject.toml:/app/pyproject.toml:ro
+
+  # Both mocks sit behind compose profiles so a plain `docker compose up` runs
+  # only the agent. NOTE: depends_on does NOT activate a profile — the Taskfile
+  # has to pass `--profile mock` / `--profile mockllm` explicitly, or the agent
+  # starts with nothing to talk to.
+  mock-portal:
+    build:
+      context: ./dev/mock-portal
+    networks:
+      - app
+    profiles:
+      - mock
+      - mockportal
+    environment:
+      RUFF_CACHE_DIR: /tmp/ruff_cache
+
+  mock-llm:
+    build:
+      context: ./dev/mock-llm
+    networks:
+      - app
+    profiles:
+      - mock
+      - mockllm
+    environment:
+      RUFF_CACHE_DIR: /tmp/ruff_cache

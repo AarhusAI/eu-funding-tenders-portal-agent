@@ -1,0 +1,15 @@
+.claude/settings.local.json
+.env
+.env.local
+.tmp/
+.venv/
+.idea/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/

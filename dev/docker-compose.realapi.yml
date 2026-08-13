@@ -1,0 +1,22 @@
+# Live Portal API + mock LLM. This is the configuration that proves the
+# blob-multipart encoding still works against production — the failure mode it
+# guards against is a 500 {"type":"throwable"} from the real SEDIA endpoint.
+# The Portal search API is public: "SEDIA" is the literal apiKey the portal
+# frontend uses, so no credentials are needed.
+services:
+  agent:
+    environment:
+      API_KEY: dev
+      AGENT_MODEL: mock-llm
+      AGENT_API_BASE_URL: http://mock-llm:8000/v1
+      AGENT_API_KEY: dev
+      PORTAL_SEARCH_URL: ${PORTAL_SEARCH_URL:-https://api.tech.ec.europa.eu/search-api/prod/rest/search}
+      PORTAL_API_KEY: ${PORTAL_API_KEY:-SEDIA}
+      PORTAL_LANGUAGES: ${PORTAL_LANGUAGES:-["en"]}
+      DEBUG: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      # The Taskfile passes `--profile mockllm` to actually start this.
+      mock-llm:
+        condition: service_started

@@ -1,0 +1,171 @@
+version: "3"
+
+dotenv: [".env.local", ".env"]
+
+# docker-compose.yml declares API_KEY and the Portal vars with ${VAR:?} so a real
+# deployment fails fast on a missing token. Compose resolves those while parsing
+# the base file — before any dev override can supply a value — so EVERY compose
+# invocation needs them present, including `down`. A real value from .env or the
+# environment always wins; these are only a local-dev fallback.
+env:
+  API_KEY: '{{.API_KEY | default "dev"}}'
+  AGENT_API_KEY: '{{.AGENT_API_KEY | default "dev"}}'
+
+vars:
+  SERVICE: agent
+  DOCKER_COMPOSE: '{{.CONTAINER_COMPOSE | default "docker compose"}}'
+  PYTHON: "{{.DOCKER_COMPOSE}} exec {{.SERVICE}}"
+  # --profile is required: depends_on does not activate a compose profile, so
+  # without it the mock services never start.
+  COMPOSE_LOCAL: "{{.DOCKER_COMPOSE}} --profile mock -f docker-compose.yml -f dev/docker-compose.local.yml"
+  COMPOSE_REALAPI: "{{.DOCKER_COMPOSE}} --profile mockllm -f docker-compose.yml -f dev/docker-compose.realapi.yml"
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+
+  up:
+    desc: Start the dev container (--reload)
+    cmds:
+      - "{{.DOCKER_COMPOSE}} up -d --build"
+
+  down:
+    desc: Stop the dev container
+    cmds:
+      - "{{.DOCKER_COMPOSE}} down"
+
+  shell:
+    desc: Shell into the running container
+    cmds:
+      - "{{.DOCKER_COMPOSE}} exec {{.SERVICE}} bash"
+
+  lint:
+    desc: ruff check
+    cmds:
+      - "{{.PYTHON}} ruff check ."
+
+  lint:fix:
+    desc: ruff check --fix + format
+    cmds:
+      - "{{.PYTHON}} ruff check --fix ."
+      - "{{.PYTHON}} ruff format ."
+
+  test:
+    desc: Run pytest inside the container
+    cmds:
+      - "{{.PYTHON}} pytest -v -p no:cacheprovider"
+
+  test:coverage:
+    desc: Run pytest with coverage (fails under 100%)
+    cmds:
+      # COVERAGE_FILE points at /tmp because /app is a bind mount owned by the
+      # host user while the container runs as uid 1000 — coverage cannot create
+      # its sqlite data file there and dies with an INTERNALERROR.
+      - "{{.DOCKER_COMPOSE}} exec -e COVERAGE_FILE=/tmp/.coverage {{.SERVICE}} pytest --cov=app --cov-report=term-missing -v -p no:cacheprovider"
+
+  ci:
+    desc: Quality gate (lint + test)
+    cmds:
+      - task: lint
+      - task: test
+
+  try:local:
+    desc: Run end-to-end against local mocks (no network, no real LLM)
+    vars:
+      QUERY: '{{.QUERY | default "Which calls fit a smart-city IoT dataspace pilot?"}}'
+    cmds:
+      - cmd: |
+          set -eu
+          # Project-local TMPDIR — sandboxed shells inherit a path docker buildx
+          # can't write to; cwd is always writable.
+          mkdir -p .tmp
+          export TMPDIR="$(pwd)/.tmp"
+          # docker-compose.yml joins an external "frontend" network (the
+          # itkdev-docker convention). Create it if this machine hasn't got one
+          # yet, so the offline stack needs no prior setup.
+          docker network inspect frontend >/dev/null 2>&1 || docker network create frontend
+
+          echo "==> building and starting local stack"
+          {{.COMPOSE_LOCAL}} up -d --build
+
+          echo "==> waiting for /health/ready"
+          ready=0
+          for _ in $(seq 1 60); do
+            if curl -fsS http://localhost:8000/health/ready >/dev/null 2>&1; then
+              ready=1
+              echo "    ready."
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            echo "service did not become ready in 60s. Showing logs:" >&2
+            {{.COMPOSE_LOCAL}} logs --tail=50 {{.SERVICE}}
+            exit 1
+          fi
+
+          echo
+          echo "==> POST /search  {{.QUERY}}"
+          curl -fsS -X POST http://localhost:8000/search \
+            -H "Authorization: Bearer dev" \
+            -H "Content-Type: application/json" \
+            -d '{"query": "{{.QUERY}}"}' | python3 -m json.tool
+
+          echo
+          echo "Tear down with:  task try:down"
+
+  try:down:
+    desc: Tear down the local-mocks stack
+    cmds:
+      - "{{.COMPOSE_LOCAL}} down -v"
+
+  try:realapi:
+    desc: Run against the LIVE Portal API with the mock LLM (proves the blob encoding)
+    cmds:
+      - cmd: |
+          set -eu
+          mkdir -p .tmp
+          export TMPDIR="$(pwd)/.tmp"
+          docker network inspect frontend >/dev/null 2>&1 || docker network create frontend
+          {{.COMPOSE_REALAPI}} up -d --build
+          echo "==> waiting for /health/ready (probes the live Portal)"
+          for _ in $(seq 1 60); do
+            curl -fsS http://localhost:8000/health/ready >/dev/null 2>&1 && break
+            sleep 1
+          done
+          echo "==> POST /search against the live Portal"
+          curl -fsS -X POST http://localhost:8000/search \
+            -H "Authorization: Bearer dev" \
+            -H "Content-Type: application/json" \
+            -d '{"query": "smart city IoT dataspace"}' | python3 -m json.tool
+
+  try:realapi:down:
+    desc: Tear down the live-API + mock-LLM stack
+    cmds:
+      - "{{.COMPOSE_REALAPI}} down -v"
+
+  build:image:
+    desc: Build and push multi-arch image to ghcr.io
+    vars:
+      IMAGE: ghcr.io/aarhusai/eu-funding-tenders-portal-agent
+      TAG: '{{.TAG | default "latest"}}'
+      PLATFORMS: '{{.PLATFORMS | default "linux/amd64,linux/arm64"}}'
+    cmds:
+      - task: build:image:builder
+      - docker buildx build --builder eu-funding-tenders-portal-agent-builder --platform {{.PLATFORMS}} --target prod -t {{.IMAGE}}:{{.TAG}} --push .
+
+  build:image:builder:
+    desc: Ensure the buildx builder + QEMU binfmt handlers exist
+    internal: true
+    silent: true
+    cmds:
+      - cmd: |
+          if ! docker buildx inspect eu-funding-tenders-portal-agent-builder >/dev/null 2>&1; then
+            echo "First-run setup: registering QEMU binfmt handlers (cross-arch emulation)..."
+            docker run --privileged --rm tonistiigi/binfmt --install all
+            echo "Creating buildx builder 'eu-funding-tenders-portal-agent-builder'..."
+            docker buildx create --name eu-funding-tenders-portal-agent-builder --driver docker-container --bootstrap
+          fi

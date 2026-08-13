@@ -1,0 +1,38 @@
+# Fully offline stack: mock Portal + mock LLM. No network, no credentials.
+# Service name must match docker-compose.yml ("agent") or this adds a second
+# service instead of overriding the real one.
+services:
+  agent:
+    environment:
+      API_KEY: dev
+      AGENT_MODEL: mock-llm
+      AGENT_API_BASE_URL: http://mock-llm:8000/v1
+      AGENT_API_KEY: dev
+      PORTAL_SEARCH_URL: http://mock-portal:8000/search-api/prod/rest/search
+      PORTAL_API_KEY: SEDIA
+      PORTAL_LANGUAGES: '["en"]'
+      # Short TTL so poking at the mock doesn't serve a stale corpus.
+      PORTAL_CACHE_TTL: "60"
+      DEBUG: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      # NOTE: depends_on does not activate the mock services' compose profile —
+      # the Taskfile passes `--profile mock`. Without it these never start.
+      mock-portal:
+        condition: service_started
+      mock-llm:
+        condition: service_started
+
+  # The mocks bake their source into the image, so without these mounts every
+  # tweak to a mock needs a full rebuild to take effect — and a stale mock is
+  # easy to mistake for a bug in the agent.
+  mock-portal:
+    volumes:
+      - ./dev/mock-portal/main.py:/app/main.py:ro
+      - ./dev/mock-portal/fixtures:/app/fixtures:ro
+
+  mock-llm:
+    volumes:
+      - ./dev/mock-llm/main.py:/app/main.py:ro
+      - ./dev/mock-llm/script.py:/app/script.py:ro

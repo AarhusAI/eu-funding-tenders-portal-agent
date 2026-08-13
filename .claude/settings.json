@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Write(.env)"
+    ],
+    "allow": [
+      "Bash(task test:coverage)",
+      "Bash(task test)",
+      "Bash(task lint)",
+      "Bash(task lint:*)",
+      "Bash(task logs)",
+      "Bash(task up)",
+      "Bash(task ci)"
+    ]
+  },
+  "sandbox": {
+    "filesystem": {
+      "denyWrite": [
+        ".env"
+      ],
+      "denyRead": [
+        ".env"
+      ]
+    }
+  }
+}

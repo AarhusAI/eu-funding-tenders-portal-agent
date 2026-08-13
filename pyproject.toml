@@ -1,0 +1,61 @@
+[project]
+name = "eu-funding-tenders-portal-agent"
+version = "0.1.0"
+description = "Natural-language search agent over the EU Funding & Tenders Portal"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "httpx>=0.27.0",
+    # Pinned to the current major. The <1.0 pin the sibling agents use resolves
+    # to 0.8.1, which imports opentelemetry._events — a module that no longer
+    # exists, so that pin no longer produces an importable install.
+    "pydantic-ai-slim[openai]>=2.0,<3",
+    # 2.x renamed FastMCP -> MCPServer and moved transport_security from the
+    # constructor onto streamable_http_app(); pinned to the major so that
+    # rename can't happen again silently.
+    "mcp[cli]>=2.0,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.9.0",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.25.0",
+    "pytest-cov>=7.0",
+    "respx>=0.21.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+exclude = ["dev*", "tests*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 99
+exclude = ["build", "dev"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["app"]
+
+[tool.coverage.report]
+# The README targets 100% coverage; fail the run if it slips.
+fail_under = 100
+show_missing = true
