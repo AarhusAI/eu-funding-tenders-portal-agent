@@ -15,6 +15,8 @@ Exposed both as a REST endpoint (`POST /search`) and as an MCP tool over Streama
 
 ## The search profile
 
+@TODO: explain what profiles are? I do not understand them and what they are used for?
+
 A profile both constrains what is retrieved and orders what comes back. Every field is optional;
 anything unset falls back to the default profile, which encodes the example from the original
 brief:
@@ -28,6 +30,9 @@ brief:
 | `clusters` | Cluster codes in the identifier, e.g. `["CL2","CL4","CL5"]` | client-side |
 | `keywords` | Keywords that additively boost a topic's score | client-side |
 
+
+@TODO: I do not understand topic_contains and clusters what do they do and what are they used for "CLX"?
+
 `topic_contains` and `clusters` are **OR**-ed: the default profile means "topics with MISS in the
 identifier *or* in cluster 2, 4 or 5". Reading it as AND would return almost nothing.
 
@@ -37,6 +42,8 @@ accepts only `bool`/`must`/`terms` — `wildcard` and `match` are rejected with
 upstream.
 
 ### Ranking
+
+@TODO: Why is this relevant and what is it used for?
 
 Score is additive over the distinct keywords a topic matches:
 
@@ -75,23 +82,28 @@ With an explicit profile:
 ```
 
 The response carries `results`, `total_matched` (matches before `max_results` truncation),
-`profile_used`, `iterations` and `warnings`. A profile naming an unknown programme or status is
+`profile_used`, `iterations` and `warnings`. A profile naming an unknown program or status is
 reported in `warnings` rather than silently ignored — quietly dropping a typo would widen the search
 while appearing to narrow it.
 
 ## How it works
 
+```mermaid
+flowchart TD
+    route["routes/search.py<br/>(POST /search)"] --> results["services/results.py"]
+    mcp["mcp_server.py<br/>(POST /mcp)"] --> results
+    results --> agent["services/agent.py<br/>(PydanticAI loop)"]
+    agent --> search_topics["search_topics"]
+    agent --> get_topic["get_topic"]
+    search_topics --> corpus["services/corpus.py<br/>(trim + dedupe + TTL cache)"]
+    search_topics --> profile["services/profile.py<br/>(pure filter + rank)"]
+    get_topic --> corpus
+    get_topic --> profile
+    get_topic --> portal["services/portal_api.py<br/>(blob-multipart transport)"]
+    corpus --> portal
 ```
-routes/search.py  ->  services/results.py  ->  services/agent.py  (PydanticAI loop)
-                                                     |
-                                    search_topics ----+---- get_topic
-                                          |                     |
-                                   services/corpus.py    services/portal_api.py
-                                   (trim + dedupe + TTL)  (blob-multipart transport)
-                                          |
-                                   services/profile.py
-                                   (pure filter + rank)
-```
+
+@TODO: Is the product???
 
 `services/profile.py` is the product and is deliberately pure — no network, no LLM, no clock. It
 takes trimmed topic dicts plus a profile and returns filtered, scored topics, which is what makes
@@ -116,6 +128,9 @@ payload is 20.8 MB, but 36% of that is HTML the product never reads (`topicCondi
 `(query, languages)`. Nothing is written to disk and there is no shared store. It survives across
 requests within one process and nothing else:
 
+@TODO: Maybe use Redis as cache or local file storage, as it will be reset and maybe run more
+       than one instances in prod setups.
+
 - A restart or redeploy drops it; the next request pays the cold fetch (~10–20 s).
 - The dev container runs `uvicorn --reload`, so every code edit drops it too.
 - It is **per worker**, which is why the container runs a single uvicorn process. Adding `--workers`
@@ -126,6 +141,8 @@ requests within one process and nothing else:
 
 `PORTAL_LANGUAGES` selects which language copy of each topic is retrieved, and a request can
 override it per call. Two things to know before changing it from `["en"]`:
+
+@TODO: Is language not obsolete, the LLM will just translate it to the desired language? 
 
 - **Coverage varies a lot.** For the default profile: `en` 970 topics, `da` 536, `fr` 532, `de` 526.
   A list acts as a preference order with per-topic fallback, so `["da","en"]` yields Danish where it
@@ -159,23 +176,11 @@ import, so the service refuses to start misconfigured rather than failing later.
 | `MCP_ALLOWED_HOSTS` | `["eu-funding-tenders-portal-agent:*","localhost:*"]` | Host allowlist for `/mcp` |
 | `DEBUG` | `false` | |
 
+@TODO: `SEDIA` in PORTAL_SEARCH_URL what is that?
+
 ## Development
 
-```bash
-task up               # start the dev container (--reload)
-task shell            # shell into it
-task test             # pytest
-task test:coverage    # pytest --cov (fails under 100%)
-task lint             # ruff check
-task lint:fix         # ruff fix + format
-task ci               # lint + test
-
-task try:local        # full stack on mocks — no network, no credentials
-task try:realapi      # live Portal + mock LLM: proves the encoding against production
-task try:down         # tear down
-
-task build:image TAG=x  # multi-arch build & push to ghcr.io
-```
+@TODO: write that we use task and that you can run `task` to get list of commands?
 
 Run a single test inside the container: `pytest tests/services/test_profile.py::test_name`.
 
@@ -183,6 +188,9 @@ Run a single test inside the container: `pytest tests/services/test_profile.py::
 prove the request encoding is still accepted by production.
 
 ## The Portal API
+
+@TODO: What is this comment about? What fails and what is obvious?
+@TODO: This seam to be something that should live in CLAUDE.MD. It does not make any sens?
 
 Notes worth keeping, because the obvious implementation of each fails.
 
@@ -225,6 +233,9 @@ JSON. Depth comes from a `terms`-on-identifier search instead — the search hit
 `actions`, `budgetOverview` and the description.
 
 ## References
+
+@TODO: why to different formats for links and are they relevant or is this something 
+       that should live in CLAUDE.md 
 
 - [AarhusAI agentic-tool guide](https://aarhusai.github.io/documentation/technical/agentic_tool.html)
 - Reference implementation: <https://github.com/AarhusAI/retrieval-agent>

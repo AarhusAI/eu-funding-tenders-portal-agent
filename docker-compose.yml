@@ -36,6 +36,7 @@ services:
       # Which language's copy of each topic to retrieve, as a JSON array. The
       # index holds every topic in up to 24 languages; "en" has the widest
       # coverage (970 topics vs 536 for "da").
+      # @TODO: The readme say is should be ['da','en'] as default?
       PORTAL_LANGUAGES: ${PORTAL_LANGUAGES:-["en"]}
       PORTAL_CACHE_TTL: ${PORTAL_CACHE_TTL:-21600}
       # Host-header allowlist for the /mcp endpoint. Override with your proxy's
@@ -45,6 +46,7 @@ services:
       DEBUG: ${DEBUG:-false}
       RUFF_CACHE_DIR: /tmp/ruff_cache
     volumes:
+      # @TODO: /app/app why?
       - ./app:/app/app
       - ./tests:/app/tests
       - ./pyproject.toml:/app/pyproject.toml:ro
