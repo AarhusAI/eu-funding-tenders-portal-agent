@@ -105,6 +105,7 @@ def _compact_summary(topic: TopicSummary) -> TopicSummary:
             "description": description,
             # The Portal repeats the identifier and call id inside keywords, and
             # the list runs long; the matched ones carry the ranking rationale.
+            # @TODO: hardcode max on keywords and tags, should be in an environment variable?
             "keywords": topic.keywords[:10],
             "tags": topic.tags[:10],
         }

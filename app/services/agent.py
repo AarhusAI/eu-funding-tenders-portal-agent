@@ -25,6 +25,7 @@ from app.services import profile as profile_service
 
 log = logging.getLogger(__name__)
 
+# @TODO: make is possible to overwrite the system prompt via environment variable?
 SYSTEM_PROMPT = """\
 You are an assistant that helps callers find EU funding opportunities in the
 Funding & Tenders Portal.
@@ -66,6 +67,7 @@ class AgentDeps:
     # would share one list across all instances (a common Python pitfall).
     full_results: list[dict[str, Any]] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    # @TODO: this would be nice to have configurable through environment variable?
     max_results: int = 10
     iterations: int = 0  # how many tools the agent called
     total_matched: int = 0  # matches before max_results truncation
@@ -79,6 +81,7 @@ _agent: Agent[AgentDeps, str] | None = None
 
 # How much description the LLM sees per topic. The full text goes to the caller
 # via deps.full_results regardless; this only bounds the model's token budget.
+# @TODO: this would be nice to have configurable through environment variable?
 _PREVIEW_CHARS = 300
 
 

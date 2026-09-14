@@ -7,6 +7,11 @@ request that filters and ranks topics.
 Exposed both as a REST endpoint (`POST /search`) and as an MCP tool over Streamable HTTP
 (`POST /mcp`), so it can be used from a chat client such as OpenWebUI.
 
+@TODO: Maybe explain that there is not official API and this is a revers engineering of the
+       sites search API, hence it may stop working etc.
+@TODO: It would be nice with at a couple of "try this question in you local LLM to see
+       results" in this readme as examples.   
+
 ## Purpose
 
 - Retrieve information from the Portal through its API.

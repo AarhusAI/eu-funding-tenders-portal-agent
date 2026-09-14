@@ -22,6 +22,8 @@ from app.models import SearchProfile
 
 TYPE_CALL_TOPIC = "1"
 
+# @TODO: Is the key and id's etc here hardcode and never change? Or should we have an way of updating them?
+
 PROGRAMME_IDS = {
     "horizon europe": "43108390",
     "digital europe": "43152860",
