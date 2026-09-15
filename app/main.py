@@ -12,6 +12,7 @@ from app.config import settings
 from app.mcp_server import mcp
 from app.routes.search import router as search_router
 from app.services import portal_api
+from app.services.cache import close_cache, init_cache
 
 logging.basicConfig(
     level=logging.DEBUG if settings.debug else logging.INFO,
@@ -25,8 +26,9 @@ async def lifespan(app: FastAPI):
     """Startup/shutdown hook for the app.
 
     Code before ``yield`` runs once at startup; code after it runs at shutdown.
-    We log the config on boot, run the MCP Streamable-HTTP session manager for
-    the lifetime of the app, and close the shared HTTP client on exit.
+    We log the config on boot, initialise the corpus cache backend, run the MCP
+    Streamable-HTTP session manager for the lifetime of the app, and close the
+    shared HTTP client and cache on exit.
 
     The ``session_manager.run()`` is required: FastAPI/Starlette does NOT invoke
     the lifespan of a sub-app attached via ``app.mount(...)``, so the MCP mount's
@@ -45,9 +47,13 @@ async def lifespan(app: FastAPI):
         ",".join(settings.portal_languages),
         settings.portal_cache_ttl,
     )
+    # Eager, so the chosen backend is in the boot log and a bad Redis URL shows
+    # up now rather than on the first search.
+    init_cache()
     async with mcp.session_manager.run():
         yield  # app runs here, serving requests, until shutdown
     await portal_api.close_client()
+    await close_cache()
     log.info("eu-funding-tenders-portal-agent stopped")
 
 
@@ -105,6 +111,10 @@ async def health_ready():
 
     Used by orchestrators (e.g. Kubernetes) to decide whether to send traffic;
     returns 503 when the upstream can't be reached so we aren't marked ready.
+
+    Deliberately does NOT probe the cache backend. A dead Redis makes searches
+    slow, not broken (the backend fails open), so failing readiness over it
+    would pull the pod out of rotation for no reason.
     """
     if await portal_api.ping():
         return {"status": "ok"}
