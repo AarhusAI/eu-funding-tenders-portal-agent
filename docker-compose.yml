@@ -35,10 +35,16 @@ services:
       PORTAL_API_KEY: ${PORTAL_API_KEY:-SEDIA}
       # Which language's copy of each topic to retrieve, as a JSON array. The
       # index holds every topic in up to 24 languages; "en" has the widest
-      # coverage (970 topics vs 536 for "da").
-      # @TODO: The readme say is should be ['da','en'] as default?
+      # coverage (970 topics vs 536 for "da"), so ["en"] is the default here and
+      # in the README. A list is a preference order with per-topic fallback, not
+      # a set — the README's ["da","en"] is an example of that, not the default.
       PORTAL_LANGUAGES: ${PORTAL_LANGUAGES:-["en"]}
       PORTAL_CACHE_TTL: ${PORTAL_CACHE_TTL:-21600}
+      # Where the trimmed topic corpus is cached: memory (per-process, the
+      # default), redis (shared across instances — start it with the "redis"
+      # compose profile), or disabled. See app/services/cache.py.
+      CACHE_BACKEND: ${CACHE_BACKEND:-memory}
+      CACHE_REDIS_URL: ${CACHE_REDIS_URL:-redis://redis:6379/0}
       # Host-header allowlist for the /mcp endpoint. Override with your proxy's
       # forwarded Host (JSON array); the default is valid JSON so an unset var
       # doesn't break pydantic-settings list parsing.
@@ -46,7 +52,10 @@ services:
       DEBUG: ${DEBUG:-false}
       RUFF_CACHE_DIR: /tmp/ruff_cache
     volumes:
-      # @TODO: /app/app why?
+      # /app/app, not /app: the Dockerfile sets WORKDIR /app and copies the
+      # Python package to /app/app, so the mount has to land on the package
+      # path. Mounting the host repo at /app instead would hide the installed
+      # pyproject.toml and the site-packages install, breaking --reload.
       - ./app:/app/app
       - ./tests:/app/tests
       - ./pyproject.toml:/app/pyproject.toml:ro
@@ -76,3 +85,26 @@ services:
       - mockllm
     environment:
       RUFF_CACHE_DIR: /tmp/ruff_cache
+
+  # Shared corpus cache. Behind a profile because CACHE_BACKEND defaults to
+  # "memory" — `task up` needs no Redis. `task up:redis` passes both the profile
+  # and CACHE_BACKEND=redis. Definition mirrors AarhusAI/search-agent's.
+  redis:
+    image: redis:7-alpine
+    networks:
+      - app
+    ports:
+      - "6379"
+    profiles:
+      - redis
+    # allkeys-lru rather than the default noeviction: one corpus is ~1 MB, so
+    # 256 MB is generous, and evicting the oldest beats refusing writes.
+    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - ./.docker/data/redis/:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

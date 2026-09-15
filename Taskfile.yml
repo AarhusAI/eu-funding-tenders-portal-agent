@@ -31,10 +31,19 @@ tasks:
     cmds:
       - "{{.DOCKER_COMPOSE}} up -d --build"
 
+  up:redis:
+    desc: Start the dev container with the shared Redis corpus cache
+    env:
+      CACHE_BACKEND: redis
+    cmds:
+      # --profile redis is required: depends_on does not activate a profile.
+      - "{{.DOCKER_COMPOSE}} --profile redis up -d --build"
+
   down:
     desc: Stop the dev container
     cmds:
-      - "{{.DOCKER_COMPOSE}} down"
+      # --profile redis so `down` also removes the cache container when it ran.
+      - "{{.DOCKER_COMPOSE}} --profile redis down"
 
   shell:
     desc: Shell into the running container
