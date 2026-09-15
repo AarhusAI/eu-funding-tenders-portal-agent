@@ -53,11 +53,21 @@ def test_compact_truncates_long_descriptions_for_llm_callers():
     response = SearchResponse(results=[_summary()], total_matched=5)
     compacted = results.compact(response)
     description = compacted.results[0].description
-    assert len(description) == results._MAX_DESCRIPTION_CHARS + 1  # + the ellipsis
+    assert len(description) == results.settings.mcp_max_description_chars + 1  # + the ellipsis
     assert description.endswith("…")
-    assert len(compacted.results[0].keywords) == 10
-    assert len(compacted.results[0].tags) == 10
+    assert len(compacted.results[0].keywords) == results.settings.mcp_max_keywords
+    assert len(compacted.results[0].tags) == results.settings.mcp_max_keywords
     assert compacted.total_matched == 5
+
+
+def test_the_compaction_bounds_are_configurable(monkeypatch):
+    """The reviewer's point: these caps are a deployment decision, not a constant."""
+    monkeypatch.setattr(results.settings, "mcp_max_description_chars", 20)
+    monkeypatch.setattr(results.settings, "mcp_max_keywords", 2)
+    compacted = results.compact(SearchResponse(results=[_summary()]))
+    assert len(compacted.results[0].description) == 21  # 20 + the ellipsis
+    assert len(compacted.results[0].keywords) == 2
+    assert len(compacted.results[0].tags) == 2
 
 
 def test_compact_leaves_short_descriptions_alone():
