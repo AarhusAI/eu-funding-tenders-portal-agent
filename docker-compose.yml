@@ -5,6 +5,14 @@ networks:
     driver: bridge
     internal: false
 
+# This file is for LOCAL DEVELOPMENT ONLY. Production runs the image pushed by
+# `task build:image`, composed into the parent AarhusAI stack's
+# docker-compose.server.yml — see "Deployment" in README.md. Nothing here is
+# deployed, which is why the agent bind-mounts the working tree below.
+#
+# Do not add a `target: ${TARGET:-dev}` build override: pointing it at the prod
+# stage still applies those bind mounts, so you would run host source on top of
+# the image you meant to test, with tests/ mounted into it.
 services:
   # Service name is "agent" everywhere, including the dev/ overrides. Keeping one
   # name matters: an override file naming a *different* service silently adds a
@@ -13,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: ${TARGET:-dev}
+      target: dev
     networks:
       - app
       - frontend
@@ -86,19 +94,26 @@ services:
     environment:
       RUFF_CACHE_DIR: /tmp/ruff_cache
 
-  # Shared corpus cache. Behind a profile because CACHE_BACKEND defaults to
-  # "memory" — `task up` needs no Redis. `task up:redis` passes both the profile
-  # and CACHE_BACKEND=redis. Definition mirrors AarhusAI/search-agent's.
+  # Shared corpus cache, for exercising CACHE_BACKEND=redis locally. Behind a
+  # profile because the default is "memory" — `task up` needs no Redis.
+  # `task up:redis` passes both the profile and CACHE_BACKEND=redis. Definition
+  # mirrors AarhusAI/search-agent's.
+  #
+  # In production do NOT run this service: the parent AarhusAI stack already
+  # provides a Redis, so point CACHE_REDIS_URL at that instead (see README).
+  #
+  # No `ports:` — the agent reaches it by service name on the app network, and
+  # `docker compose exec redis redis-cli` covers inspection. Publishing it would
+  # expose the cache on a host port for nothing.
   redis:
     image: redis:7-alpine
     networks:
       - app
-    ports:
-      - "6379"
     profiles:
       - redis
-    # allkeys-lru rather than the default noeviction: one corpus is ~1 MB, so
-    # 256 MB is generous, and evicting the oldest beats refusing writes.
+    # allkeys-lru rather than the default noeviction: one corpus measures 4.2 MB,
+    # so 256 MB holds ~60 profile/language combinations, and evicting the coldest
+    # beats refusing writes.
     command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
     volumes:
       - ./.docker/data/redis/:/data

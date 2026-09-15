@@ -346,6 +346,42 @@ Run a single test inside the container: `pytest tests/services/test_profile.py::
 `task try:realapi` is the one that matters after touching `services/portal_api.py` — the mock cannot
 prove the request encoding is still accepted by production.
 
+## Deployment
+
+**`docker-compose.yml` in this repo is for local development only** — it bind-mounts the working
+tree. Production runs the published image, composed into the parent AarhusAI stack's
+`docker-compose.server.yml`, the same as the sibling agents. There is no registration API;
+integration is by being composed in.
+
+```bash
+task build:image TAG=v0.1.0      # builds linux/amd64 + linux/arm64, pushes to ghcr.io
+task build:image                 # tags `latest`
+```
+
+The image is `ghcr.io/aarhusai/eu-funding-tenders-portal-agent`, built from the `prod` stage.
+`task build:image` refuses to run on a dirty working tree and runs `task ci` first — there is no CI
+workflow, so that is the only gate between an edit and the tag everything pulls.
+
+The service joins the parent stack's `app` network (service-to-service) and `frontend` (Traefik
+ingress).
+
+### What to set in the parent stack
+
+Beyond `API_KEY` and `AGENT_API_KEY`, one decision matters:
+
+```yaml
+CACHE_BACKEND: redis
+CACHE_REDIS_URL: redis://<the parent stack's redis>:6379/0
+```
+
+**Do not deploy this repo's `redis` service** — it exists so `task up:redis` can exercise the code
+path locally. The parent stack already runs a Redis; point `CACHE_REDIS_URL` at that.
+
+Left at the `memory` default, every replica keeps its own corpus and re-pays the ~11 s cold fetch on
+every restart and redeploy, and you must not scale past a single worker. That works, and it is the
+right choice for a single small instance — but if you run more than one, `redis` is the setting that
+makes them share. It fails open, so a Redis outage costs latency, not availability.
+
 ## The Portal API
 
 Because the API is undocumented (see the note at the top), everything below had to be discovered by
