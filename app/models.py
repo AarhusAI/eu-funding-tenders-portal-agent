@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 
+from app.config import settings
+
 # Pydantic models double as the API's request/response schema: FastAPI uses
 # them to validate incoming JSON and to serialise outgoing JSON. A "str | None"
 # type means the field is optional and may be null.
@@ -66,7 +68,16 @@ class SearchRequest(BaseModel):
     # Field(...) attaches validation rules; a bad value is rejected with a 422.
     query: str = Field(min_length=1, max_length=2000)  # non-empty, capped length
     profile: SearchProfile | None = None  # unset → the README's default profile
-    max_results: int = Field(default=10, ge=1, le=50)  # ge/le = inclusive min/max
+    # Bounds come from settings, so /search and the MCP tool clamp identically.
+    # Unlike every other settings read in this codebase these are evaluated at
+    # import time — a Field default has to be — which is fine because Settings()
+    # is itself built at import, but it does mean tests monkeypatching
+    # agent_max_results won't move this default.
+    max_results: int = Field(  # ge/le = inclusive min/max
+        default=settings.agent_max_results,
+        ge=1,
+        le=settings.agent_max_results_cap,
+    )
     language: str | None = Field(default=None, pattern=r"^[a-z]{2}$")  # reply language hint
 
 

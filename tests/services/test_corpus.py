@@ -5,10 +5,13 @@ identifiers even in a single language, and requesting two languages returns each
 topic once per language (970 + 536 = 1506).
 """
 
+from unittest.mock import AsyncMock
+
 import httpx
 import respx
+from redis.exceptions import ConnectionError as RedisConnectionError
 
-from app.services import corpus
+from app.services import cache, corpus
 from tests.conftest import PORTAL_URL
 
 # --- reading the Portal's dict-of-lists metadata ------------------------------
@@ -36,6 +39,33 @@ def test_nested_json_parses_fields_stored_as_strings():
     """actions/budgetOverview/links arrive as JSON *text* inside a 1-element list."""
     metadata = {"actions": ['[{"status": {"abbreviation": "Open"}}]']}
     assert corpus._nested_json(metadata, "actions")[0]["status"]["abbreviation"] == "Open"
+
+
+def test_keywords_arrive_as_a_plain_list_on_most_rows():
+    assert corpus._keywords({"keywords": ["IoT", "Cloud"]}) == ["IoT", "Cloud"]
+    assert corpus._keywords({}) == []
+
+
+def test_keywords_encoded_as_a_json_string_are_parsed_into_a_real_list():
+    """Some rows hold the whole keyword array as ONE JSON-encoded string.
+
+    Unparsed it defeats compact()'s keywords[:N] cap — a 1-element list is
+    already under any cap — so the full ~1 KB blob reaches the model each turn.
+    """
+    metadata = {"keywords": ['["Gender research","Gender studies","Social Innovation"]']}
+    assert corpus._keywords(metadata) == ["Gender research", "Gender studies", "Social Innovation"]
+
+
+def test_a_keyword_string_that_only_looks_like_json_is_left_alone():
+    """Falls back to the raw value rather than dropping the keyword."""
+    assert corpus._keywords({"keywords": ["[not actually json"]}) == ["[not actually json"]
+
+
+def test_both_keyword_shapes_appear_in_the_real_fixture(portal_page):
+    """3 of 9 rows are the encoded shape, so the fixture covers both branches."""
+    shapes = [corpus.trim(row)["keywords"] for row in portal_page["results"]]
+    assert all(not (len(k) == 1 and k[0].startswith("[")) for k in shapes)
+    assert any(len(k) > 3 for k in shapes)  # a parsed blob yields many entries
 
 
 def test_nested_json_treats_unusable_content_as_absent():
@@ -153,8 +183,9 @@ async def test_corpus_is_fetched_once_then_served_from_memory(portal_page):
 async def test_corpus_refetches_once_the_ttl_expires(portal_page, monkeypatch):
     route = respx.post(PORTAL_URL).mock(return_value=httpx.Response(200, json=portal_page))
     clock = [1000.0]
-    # monotonic, not wall-clock: a clock change must not make a fresh cache stale.
-    monkeypatch.setattr(corpus.time, "monotonic", lambda: clock[0])
+    # monotonic, not wall-clock: a clock change must not make a fresh cache
+    # stale. The clock now lives in the backend, not in corpus.
+    monkeypatch.setattr(cache.time, "monotonic", lambda: clock[0])
     monkeypatch.setattr(corpus.settings, "portal_cache_ttl", 60)
 
     await corpus.get_topics(QUERY, ["en"])
@@ -184,9 +215,31 @@ async def test_a_different_query_is_a_different_cache_entry(portal_page):
 
 
 @respx.mock
-async def test_invalidate_drops_the_cache(portal_page):
+async def test_swapping_in_a_fresh_backend_drops_the_cache(portal_page):
+    """Replaces the old invalidate() hook: isolation now comes from the backend."""
     route = respx.post(PORTAL_URL).mock(return_value=httpx.Response(200, json=portal_page))
     await corpus.get_topics(QUERY, ["en"])
-    corpus.invalidate()
+    cache.set_backend_for_testing(cache.InMemoryBackend())
     await corpus.get_topics(QUERY, ["en"])
     assert route.call_count == 2
+
+
+@respx.mock
+async def test_an_unreachable_redis_costs_a_refetch_not_a_failed_search(portal_page):
+    """Fail-open, end to end.
+
+    The corpus does not catch anything itself — ``RedisBackend`` is what fails
+    open — so this drives a real RedisBackend whose client raises on every call
+    and asserts the search still returns topics, just without caching them.
+    """
+    client = AsyncMock()
+    client.get = AsyncMock(side_effect=RedisConnectionError("no redis here"))
+    client.setex = AsyncMock(side_effect=RedisConnectionError("no redis here"))
+    cache.set_backend_for_testing(cache.RedisBackend(client))
+
+    route = respx.post(PORTAL_URL).mock(return_value=httpx.Response(200, json=portal_page))
+    first = await corpus.get_topics(QUERY, ["en"])
+    second = await corpus.get_topics(QUERY, ["en"])
+
+    assert first and second  # searches succeeded despite the dead cache
+    assert route.call_count == 2  # nothing was cached, so both refetched

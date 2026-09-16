@@ -1,6 +1,9 @@
 .git
 .gitignore
 .tmp
+# Redis persists the cached corpus here (docker-compose.yml). Several MB that
+# would otherwise be uploaded into the build context on every build.
+.docker
 .venv
 .idea
 __pycache__

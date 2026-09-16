@@ -2,6 +2,7 @@
 .env
 .env.local
 .tmp/
+.docker/
 .venv/
 .idea/
 __pycache__/

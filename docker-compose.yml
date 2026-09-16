@@ -5,6 +5,14 @@ networks:
     driver: bridge
     internal: false
 
+# This file is for LOCAL DEVELOPMENT ONLY. Production runs the image pushed by
+# `task build:image`, composed into the parent AarhusAI stack's
+# docker-compose.server.yml — see "Deployment" in README.md. Nothing here is
+# deployed, which is why the agent bind-mounts the working tree below.
+#
+# Do not add a `target: ${TARGET:-dev}` build override: pointing it at the prod
+# stage still applies those bind mounts, so you would run host source on top of
+# the image you meant to test, with tests/ mounted into it.
 services:
   # Service name is "agent" everywhere, including the dev/ overrides. Keeping one
   # name matters: an override file naming a *different* service silently adds a
@@ -13,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: ${TARGET:-dev}
+      target: dev
     networks:
       - app
       - frontend
@@ -35,10 +43,16 @@ services:
       PORTAL_API_KEY: ${PORTAL_API_KEY:-SEDIA}
       # Which language's copy of each topic to retrieve, as a JSON array. The
       # index holds every topic in up to 24 languages; "en" has the widest
-      # coverage (970 topics vs 536 for "da").
-      # @TODO: The readme say is should be ['da','en'] as default?
+      # coverage (970 topics vs 536 for "da"), so ["en"] is the default here and
+      # in the README. A list is a preference order with per-topic fallback, not
+      # a set — the README's ["da","en"] is an example of that, not the default.
       PORTAL_LANGUAGES: ${PORTAL_LANGUAGES:-["en"]}
       PORTAL_CACHE_TTL: ${PORTAL_CACHE_TTL:-21600}
+      # Where the trimmed topic corpus is cached: memory (per-process, the
+      # default), redis (shared across instances — start it with the "redis"
+      # compose profile), or disabled. See app/services/cache.py.
+      CACHE_BACKEND: ${CACHE_BACKEND:-memory}
+      CACHE_REDIS_URL: ${CACHE_REDIS_URL:-redis://redis:6379/0}
       # Host-header allowlist for the /mcp endpoint. Override with your proxy's
       # forwarded Host (JSON array); the default is valid JSON so an unset var
       # doesn't break pydantic-settings list parsing.
@@ -46,7 +60,10 @@ services:
       DEBUG: ${DEBUG:-false}
       RUFF_CACHE_DIR: /tmp/ruff_cache
     volumes:
-      # @TODO: /app/app why?
+      # /app/app, not /app: the Dockerfile sets WORKDIR /app and copies the
+      # Python package to /app/app, so the mount has to land on the package
+      # path. Mounting the host repo at /app instead would hide the installed
+      # pyproject.toml and the site-packages install, breaking --reload.
       - ./app:/app/app
       - ./tests:/app/tests
       - ./pyproject.toml:/app/pyproject.toml:ro
@@ -76,3 +93,33 @@ services:
       - mockllm
     environment:
       RUFF_CACHE_DIR: /tmp/ruff_cache
+
+  # Shared corpus cache, for exercising CACHE_BACKEND=redis locally. Behind a
+  # profile because the default is "memory" — `task up` needs no Redis.
+  # `task up:redis` passes both the profile and CACHE_BACKEND=redis. Definition
+  # mirrors AarhusAI/search-agent's.
+  #
+  # In production do NOT run this service: the parent AarhusAI stack already
+  # provides a Redis, so point CACHE_REDIS_URL at that instead (see README).
+  #
+  # No `ports:` — the agent reaches it by service name on the app network, and
+  # `docker compose exec redis redis-cli` covers inspection. Publishing it would
+  # expose the cache on a host port for nothing.
+  redis:
+    image: redis:7-alpine
+    networks:
+      - app
+    profiles:
+      - redis
+    # allkeys-lru rather than the default noeviction: one corpus measures 4.2 MB,
+    # so 256 MB holds ~60 profile/language combinations, and evicting the coldest
+    # beats refusing writes.
+    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - ./.docker/data/redis/:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

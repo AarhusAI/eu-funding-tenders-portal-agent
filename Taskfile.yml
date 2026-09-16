@@ -31,10 +31,19 @@ tasks:
     cmds:
       - "{{.DOCKER_COMPOSE}} up -d --build"
 
+  up:redis:
+    desc: Start the dev container with the shared Redis corpus cache
+    env:
+      CACHE_BACKEND: redis
+    cmds:
+      # --profile redis is required: depends_on does not activate a profile.
+      - "{{.DOCKER_COMPOSE}} --profile redis up -d --build"
+
   down:
     desc: Stop the dev container
     cmds:
-      - "{{.DOCKER_COMPOSE}} down"
+      # --profile redis so `down` also removes the cache container when it ran.
+      - "{{.DOCKER_COMPOSE}} --profile redis down"
 
   shell:
     desc: Shell into the running container
@@ -148,14 +157,34 @@ tasks:
       - "{{.COMPOSE_REALAPI}} down -v"
 
   build:image:
-    desc: Build and push multi-arch image to ghcr.io
+    desc: Build and push multi-arch image to ghcr.io (runs the quality gate first)
     vars:
       IMAGE: ghcr.io/aarhusai/eu-funding-tenders-portal-agent
       TAG: '{{.TAG | default "latest"}}'
       PLATFORMS: '{{.PLATFORMS | default "linux/amd64,linux/arm64"}}'
     cmds:
+      # There is no CI workflow, so this is the only gate between a working tree
+      # and the tag everything pulls. Both checks are refusals, not warnings:
+      # `latest` is the default tag, so an unguarded push ships whatever happens
+      # to be on disk.
+      - task: build:image:preflight
       - task: build:image:builder
       - docker buildx build --builder eu-funding-tenders-portal-agent-builder --platform {{.PLATFORMS}} --target prod -t {{.IMAGE}}:{{.TAG}} --push .
+      - 'echo "pushed {{.IMAGE}}:{{.TAG}}"'
+
+  build:image:preflight:
+    desc: Refuse to ship a dirty tree or a failing suite
+    internal: true
+    cmds:
+      - cmd: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "refusing to build: working tree is dirty." >&2
+            echo "The image would not match any commit. Commit or stash first:" >&2
+            git status --short >&2
+            exit 1
+          fi
+      # lint + test, inside the running dev container (so `task up` must be up).
+      - task: ci
 
   build:image:builder:
     desc: Ensure the buildx builder + QEMU binfmt handlers exist

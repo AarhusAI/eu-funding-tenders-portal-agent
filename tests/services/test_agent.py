@@ -46,8 +46,9 @@ async def test_search_tool_keeps_full_records_out_of_the_llms_budget(portal_page
     assert identifiers["other"] not in kept  # CL6 matches neither profile rule
     # The full description survives in the side channel; the preview is capped.
     longest = max(deps.full_results, key=lambda t: len(t["description"]))
-    assert len(longest["description"]) > agent_module._PREVIEW_CHARS
-    assert len(agent_module._preview(longest)["preview"]) == agent_module._PREVIEW_CHARS
+    preview_chars = agent_module.settings.agent_preview_chars
+    assert len(longest["description"]) > preview_chars
+    assert len(agent_module._preview(longest)["preview"]) == preview_chars
     assert deps.iterations == 1
     assert deps.total_matched >= len(deps.full_results)
 
@@ -200,6 +201,41 @@ async def test_handle_returns_partial_results_on_error(monkeypatch):
     assert deps.full_results == []
 
 
+async def test_the_tool_call_budget_is_passed_to_the_agent_run(monkeypatch):
+    """AGENT_MAX_ITERATIONS has to reach PydanticAI or it is a setting that lies."""
+    built = agent_module._build_agent()
+    monkeypatch.setattr(agent_module.settings, "agent_max_iterations", 3)
+    seen = {}
+
+    async def capture(prompt, **kwargs):
+        seen["limits"] = kwargs.get("usage_limits")
+
+    monkeypatch.setattr(built, "run", capture)
+    await agent_module.handle(query="x", max_results=3, language=None)
+    assert seen["limits"].tool_calls_limit == 3
+
+
+@respx.mock
+async def test_exceeding_the_tool_call_budget_still_returns_gathered_topics(
+    portal_page, monkeypatch
+):
+    """The tools already wrote into deps, so the caller keeps their results —
+    they just lose the model's closing summary."""
+    respx.post(PORTAL_URL).mock(return_value=httpx.Response(200, json=portal_page))
+    monkeypatch.setattr(agent_module.settings, "agent_max_iterations", 1)
+    built = agent_module._build_agent()
+
+    # A model that never stops calling search_topics; the limit is what ends it.
+    def never_stops(messages, info):
+        return ModelResponse(parts=[ToolCallPart(tool_name="search_topics", args={})])
+
+    with built.override(model=FunctionModel(never_stops)):
+        deps = await agent_module.handle(query="loop forever", max_results=5, language=None)
+
+    assert deps.iterations == 1  # stopped at the budget, not after N rounds
+    assert deps.full_results  # and the results the tool gathered survived
+
+
 async def test_language_hint_is_passed_through(monkeypatch):
     built = agent_module._build_agent()
     seen = {}
@@ -221,3 +257,22 @@ def test_handle_resolves_a_partial_profile():
     profile = agent_module.profile_service.resolve(SearchProfile(clusters=["CL5"]))
     assert profile.clusters == ["CL5"]
     assert profile.keywords == agent_module.profile_service.DEFAULT_KEYWORDS
+
+
+def test_the_system_prompt_can_be_replaced_from_the_environment(monkeypatch):
+    """An override replaces the prompt wholesale, tool workflow included."""
+    assert agent_module._system_prompt() is agent_module.DEFAULT_SYSTEM_PROMPT
+    monkeypatch.setattr(agent_module.settings, "agent_system_prompt", "Svar altid på dansk.")
+    assert agent_module._system_prompt() == "Svar altid på dansk."
+
+
+def test_the_preview_length_is_configurable(monkeypatch):
+    monkeypatch.setattr(agent_module.settings, "agent_preview_chars", 10)
+    preview = agent_module._preview({"description": "x" * 50})
+    assert len(preview["preview"]) == 10
+
+
+def test_deps_default_max_results_follows_the_setting(monkeypatch):
+    monkeypatch.setattr(agent_module.settings, "agent_max_results", 25)
+    deps = agent_module.AgentDeps(profile=SearchProfile())
+    assert deps.max_results == 25

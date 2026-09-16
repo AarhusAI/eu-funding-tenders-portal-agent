@@ -13,6 +13,7 @@ which is where ``main.py`` supplies it.
 
 from mcp.server import MCPServer
 
+from app.config import settings
 from app.models import SearchProfile
 from app.services.results import compact, run_search
 
@@ -22,7 +23,7 @@ mcp = MCPServer("eu-funding-tenders-portal-agent")
 @mcp.tool()
 async def search_funding_topics(
     query: str,
-    max_results: int = 10,
+    max_results: int = settings.agent_max_results,
     language: str | None = None,
     programmes: list[str] | None = None,
     statuses: list[str] | None = None,
@@ -39,7 +40,8 @@ async def search_funding_topics(
 
     Args:
         query: A natural-language description of the funding topics to find.
-        max_results: Maximum number of topics to return (1-50, default 10).
+        max_results: Maximum number of topics to return; out-of-range values are
+            clamped to the configured bounds rather than rejected.
         language: Optional ISO-639-1 hint for the reply language, e.g. "da".
         programmes: Framework programmes, e.g. ["Horizon Europe"].
         statuses: Submission statuses, e.g. ["Forthcoming", "Open for submission"].
@@ -52,7 +54,8 @@ async def search_funding_topics(
         "total_matched": int, "profile_used": {...}, "iterations": int}.
     """
     # Clamp to the same bounds SearchRequest enforces for the REST endpoint.
-    max_results = max(1, min(max_results, 50))
+    # Imperative here because MCP tool args bypass SearchRequest's validation.
+    max_results = max(1, min(max_results, settings.agent_max_results_cap))
     # Only fields the caller actually set become overrides; the rest fall back
     # to the default profile inside run_search.
     overrides = SearchProfile(

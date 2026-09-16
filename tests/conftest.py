@@ -16,7 +16,7 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app
-from app.services import corpus, portal_api
+from app.services import cache, corpus, portal_api
 
 FIXTURES = pathlib.Path(__file__).parent / "fixtures"
 
@@ -39,10 +39,17 @@ async def client():
 
 @pytest.fixture(autouse=True)
 async def _reset_state():
-    """Module-level clients and caches leak between tests unless reset."""
+    """Module-level clients and caches leak between tests unless reset.
+
+    A fresh ``InMemoryBackend`` per test is the isolation: the app never calls
+    ``init_cache()`` here (no lifespan runs for the shared ``client`` fixture),
+    so without this every test would get the disabled backend and the corpus
+    tests that count Portal round-trips would stop meaning anything.
+    """
+    cache.set_backend_for_testing(cache.InMemoryBackend())
     yield
     await portal_api.close_client()
-    corpus.invalidate()
+    cache.set_backend_for_testing(None)
 
 
 @pytest.fixture
