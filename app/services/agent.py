@@ -12,11 +12,13 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from pydantic_ai import Agent, RunContext
+from pydantic_ai.exceptions import UsageLimitExceeded
 
 # OpenAIChatModel is what pydantic-ai 1.x/2.x renamed OpenAIModel to; the older
 # name appears throughout the sibling agents and in most online examples.
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai.usage import UsageLimits
 
 from app.config import settings
 from app.models import SearchProfile
@@ -25,7 +27,7 @@ from app.services import profile as profile_service
 
 log = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """\
+DEFAULT_SYSTEM_PROMPT = """\
 You are an assistant that helps callers find EU funding opportunities in the
 Funding & Tenders Portal.
 
@@ -51,6 +53,17 @@ deadlines or budgets: use only what the tools return.
 """
 
 
+def _system_prompt() -> str:
+    """The active prompt: AGENT_SYSTEM_PROMPT if set, else the default above.
+
+    An override replaces the prompt *wholesale*, tool-calling workflow included.
+    Dropping step 2 from the workflow is enough to stop the agent calling
+    search_topics at all, so an override should start from the default text.
+    Read at agent-build time, not import time, so tests can monkeypatch it.
+    """
+    return settings.agent_system_prompt or DEFAULT_SYSTEM_PROMPT
+
+
 @dataclass
 class AgentDeps:
     """Per-request scratch space shared with every tool the agent calls.
@@ -66,7 +79,10 @@ class AgentDeps:
     # would share one list across all instances (a common Python pitfall).
     full_results: list[dict[str, Any]] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
-    max_results: int = 10
+    # Only a fallback: /search and the MCP tool both pass an explicit value,
+    # already clamped to AGENT_MAX_RESULTS_CAP. default_factory (not "=") so the
+    # setting is read per instance rather than frozen at import.
+    max_results: int = field(default_factory=lambda: settings.agent_max_results)
     iterations: int = 0  # how many tools the agent called
     total_matched: int = 0  # matches before max_results truncation
     language_hint: str | None = None
@@ -77,13 +93,14 @@ class AgentDeps:
 _model: OpenAIChatModel | None = None
 _agent: Agent[AgentDeps, str] | None = None
 
-# How much description the LLM sees per topic. The full text goes to the caller
-# via deps.full_results regardless; this only bounds the model's token budget.
-_PREVIEW_CHARS = 300
-
 
 def _preview(topic: dict[str, Any]) -> dict[str, Any]:
-    """The small projection of a topic handed to the LLM."""
+    """The small projection of a topic handed to the LLM.
+
+    How much description the model sees is AGENT_PREVIEW_CHARS. The full text
+    goes to the caller via deps.full_results regardless; this only bounds the
+    model's token budget. Read at call time so tests can monkeypatch it.
+    """
     description = topic.get("description") or ""
     return {
         "identifier": topic.get("identifier"),
@@ -92,7 +109,7 @@ def _preview(topic: dict[str, Any]) -> dict[str, Any]:
         "deadline": topic.get("deadline_date"),
         "score": topic.get("score", 0),
         "matched_keywords": topic.get("matched_keywords", []),
-        "preview": description[:_PREVIEW_CHARS],
+        "preview": description[: settings.agent_preview_chars],
     }
 
 
@@ -111,7 +128,7 @@ def _build_agent() -> Agent[AgentDeps, str]:
     _agent = Agent(
         _model,
         deps_type=AgentDeps,
-        system_prompt=SYSTEM_PROMPT,
+        system_prompt=_system_prompt(),
     )
 
     # The @_agent.tool decorator registers each nested async function as a tool
@@ -225,11 +242,12 @@ async def handle(
 ) -> AgentDeps:
     """Run the agent loop once and return its deps (full_results + counters).
 
-    Public entry point called by the /search route. Runs under a timeout and
-    degrades gracefully: on timeout or any error it logs and returns whatever
-    ``deps`` managed to collect so far, rather than failing the request. That
-    matters more here than usual — a cold corpus fetch is 10 sequential Portal
-    requests, so the first run after a restart is the slow one.
+    Public entry point called by the /search route. Bounded two ways — a wall
+    clock (``AGENT_TIMEOUT``) and a tool-call budget (``AGENT_MAX_ITERATIONS``)
+    — and degrades gracefully past either: it logs and returns whatever ``deps``
+    managed to collect, rather than failing the request. That matters more here
+    than usual — a cold corpus fetch is 10 sequential Portal requests, so the
+    first run after a restart is the slow one.
     """
     resolved = profile_service.resolve(search_profile)
     deps = AgentDeps(profile=resolved, max_results=max_results, language_hint=language)
@@ -239,12 +257,26 @@ async def handle(
     try:
         # wait_for cancels the agent run if it exceeds agent_timeout seconds.
         await asyncio.wait_for(
-            agent.run(user_message, deps=deps),
+            agent.run(
+                user_message,
+                deps=deps,
+                # Hard stop on a model that keeps calling tools instead of
+                # answering. The system prompt asks it to stop once it has
+                # enough; this is what happens when it doesn't.
+                usage_limits=UsageLimits(tool_calls_limit=settings.agent_max_iterations),
+            ),
             timeout=settings.agent_timeout,
         )
     except TimeoutError:
         log.warning(
             "agent loop timed out after %ds — returning partial results", settings.agent_timeout
+        )
+    except UsageLimitExceeded:
+        # Not an error: the tools already wrote their results into deps, so the
+        # caller still gets topics — just without the model's closing summary.
+        log.warning(
+            "agent hit the %d tool-call limit — returning what the tools gathered",
+            settings.agent_max_iterations,
         )
     except Exception:
         log.exception("agent loop failed — returning whatever was gathered")

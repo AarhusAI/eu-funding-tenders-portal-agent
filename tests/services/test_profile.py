@@ -191,3 +191,25 @@ def test_apply_does_not_mutate_its_input():
     topics = [{"identifier": "HORIZON-CL5-1", "title": "Cloud"}]
     profile_service.apply(topics, SearchProfile(keywords=["Cloud"], clusters=["CL5"]))
     assert "score" not in topics[0]
+
+
+def test_env_overrides_extend_the_builtin_programme_table():
+    """A newly published programme should be an env var, not a release."""
+    merged = profile_service._with_overrides(
+        profile_service._BUILTIN_PROGRAMME_IDS, {"Creative Europe": "99999999"}
+    )
+    assert merged["creative europe"] == "99999999"
+    assert merged["horizon europe"] == "43108390"  # built-ins survive
+
+
+def test_an_env_override_can_correct_a_builtin_id():
+    merged = profile_service._with_overrides(
+        profile_service._BUILTIN_STATUS_IDS, {"Closed": "31094599"}
+    )
+    assert merged["closed"] == "31094599"
+
+
+def test_override_keys_are_lowercased_so_they_replace_rather_than_duplicate():
+    """Lookup is case-insensitive; an unnormalised key would shadow nothing."""
+    merged = profile_service._with_overrides({"horizon europe": "1"}, {"  HORIZON EUROPE  ": "2"})
+    assert merged == {"horizon europe": "2"}

@@ -17,6 +17,10 @@ dependencies = [
     # constructor onto streamable_http_app(); pinned to the major so that
     # rename can't happen again silently.
     "mcp[cli]>=2.0,<3",
+    # Optional at runtime (CACHE_BACKEND defaults to "memory") but always
+    # installed, so switching to redis is an env var rather than a rebuild.
+    # Same pin as the sibling AarhusAI/search-agent.
+    "redis>=7.4,<8",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +30,9 @@ dev = [
     "pytest-asyncio>=0.25.0",
     "pytest-cov>=7.0",
     "respx>=0.21.0",
+    # In-process Redis double, so the RedisBackend paths are covered without a
+    # live server — the coverage gate is 100%.
+    "fakeredis>=2.35,<3",
 ]
 
 [build-system]

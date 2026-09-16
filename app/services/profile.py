@@ -22,18 +22,42 @@ from app.models import SearchProfile
 
 TYPE_CALL_TOPIC = "1"
 
-PROGRAMME_IDS = {
+# These are the Portal's own taxonomy ids — the literal values its frontend
+# posts — verified against production. They are stable: a programme's id does
+# not change once published. What *does* happen is that the EU publishes a new
+# programme, so PORTAL_PROGRAMME_IDS / PORTAL_STATUS_IDS (JSON objects of
+# name -> id) merge over the built-ins below. Adding one is then an env var
+# rather than a release. To find an id: open the Portal's search page, filter by
+# the programme, and read the `frameworkProgramme` terms value off the
+# search-api request in the browser's network tab.
+_BUILTIN_PROGRAMME_IDS = {
     "horizon europe": "43108390",
     "digital europe": "43152860",
     "eu4health": "43332642",
 }
-PROGRAMME_NAMES = {v: k.title() for k, v in PROGRAMME_IDS.items()}
-
-STATUS_IDS = {
+_BUILTIN_STATUS_IDS = {
     "forthcoming": "31094501",
     "open for submission": "31094502",
     "closed": "31094503",
 }
+
+
+def _with_overrides(builtin: dict[str, str], overrides: dict[str, str]) -> dict[str, str]:
+    """Merge env overrides over the built-in table, lower-casing their keys.
+
+    Lookup is case-insensitive (see ``_lookup``), so an override keyed
+    "Horizon Europe" has to be normalised or it would add a second entry
+    instead of replacing the built-in one.
+    """
+    return {**builtin, **{name.strip().lower(): id_ for name, id_ in overrides.items()}}
+
+
+PROGRAMME_IDS = _with_overrides(_BUILTIN_PROGRAMME_IDS, settings.portal_programme_ids)
+STATUS_IDS = _with_overrides(_BUILTIN_STATUS_IDS, settings.portal_status_ids)
+
+# Reverse maps, derived *after* the merge so an overridden id still resolves to
+# a readable name in the response.
+PROGRAMME_NAMES = {v: k.title() for k, v in PROGRAMME_IDS.items()}
 STATUS_NAMES = {v: k.capitalize() for k, v in STATUS_IDS.items()}
 
 # The keyword list from README.md. Duplicates in the README ("Citizen

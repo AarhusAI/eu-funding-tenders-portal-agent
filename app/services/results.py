@@ -9,14 +9,10 @@ load-bearing "return full_results, not what the LLM saw" split — lives in one
 place.
 """
 
+from app.config import settings
 from app.models import SearchProfile, SearchResponse, TopicSummary
 from app.services import agent
 from app.services import profile as profile_service
-
-# Budget per compacted topic: enough for the model to summarise, small enough
-# that a chat client replaying every tool result across turns doesn't overflow
-# its context window.
-_MAX_DESCRIPTION_CHARS = 400
 
 
 async def run_search(
@@ -96,16 +92,23 @@ def compact(response: SearchResponse) -> SearchResponse:
 
 
 def _compact_summary(topic: TopicSummary) -> TopicSummary:
-    """Trim one summary: truncated description, keywords capped."""
+    """Trim one summary: description truncated, keyword and tag lists capped.
+
+    Both bounds are settings (MCP_MAX_DESCRIPTION_CHARS, MCP_MAX_KEYWORDS) and
+    are read at call time, so a deployment whose chat client has a roomier
+    context can raise them without a rebuild.
+    """
+    max_chars = settings.mcp_max_description_chars
+    max_keywords = settings.mcp_max_keywords
     description = topic.description
-    if description and len(description) > _MAX_DESCRIPTION_CHARS:
-        description = description[:_MAX_DESCRIPTION_CHARS].rstrip() + "…"
+    if description and len(description) > max_chars:
+        description = description[:max_chars].rstrip() + "…"
     return topic.model_copy(
         update={
             "description": description,
             # The Portal repeats the identifier and call id inside keywords, and
             # the list runs long; the matched ones carry the ranking rationale.
-            "keywords": topic.keywords[:10],
-            "tags": topic.tags[:10],
+            "keywords": topic.keywords[:max_keywords],
+            "tags": topic.tags[:max_keywords],
         }
     )
