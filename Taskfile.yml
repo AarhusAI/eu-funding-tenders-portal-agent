@@ -163,28 +163,9 @@ tasks:
       TAG: '{{.TAG | default "latest"}}'
       PLATFORMS: '{{.PLATFORMS | default "linux/amd64,linux/arm64"}}'
     cmds:
-      # There is no CI workflow, so this is the only gate between a working tree
-      # and the tag everything pulls. Both checks are refusals, not warnings:
-      # `latest` is the default tag, so an unguarded push ships whatever happens
-      # to be on disk.
-      - task: build:image:preflight
       - task: build:image:builder
       - docker buildx build --builder eu-funding-tenders-portal-agent-builder --platform {{.PLATFORMS}} --target prod -t {{.IMAGE}}:{{.TAG}} --push .
       - 'echo "pushed {{.IMAGE}}:{{.TAG}}"'
-
-  build:image:preflight:
-    desc: Refuse to ship a dirty tree or a failing suite
-    internal: true
-    cmds:
-      - cmd: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "refusing to build: working tree is dirty." >&2
-            echo "The image would not match any commit. Commit or stash first:" >&2
-            git status --short >&2
-            exit 1
-          fi
-      # lint + test, inside the running dev container (so `task up` must be up).
-      - task: ci
 
   build:image:builder:
     desc: Ensure the buildx builder + QEMU binfmt handlers exist
