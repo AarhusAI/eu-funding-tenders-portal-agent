@@ -77,7 +77,6 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
   reproduces the real API's 500 on plain-form parameters and 400 on unsupported query clauses.
 - 100% test coverage, enforced with `--cov-fail-under=100`.
 
-
 [Unreleased]: https://github.com/AarhusAI/office-agent/compare/0.0.1...HEAD
 [Keep a Changelog]: https://keepachangelog.com/en/1.1.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html

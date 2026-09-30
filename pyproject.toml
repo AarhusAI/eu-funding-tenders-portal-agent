@@ -33,6 +33,7 @@ dev = [
     # In-process Redis double, so the RedisBackend paths are covered without a
     # live server — the coverage gate is 100%.
     "fakeredis>=2.35,<3",
+    "basedpyright>=1.40,<2",
 ]
 
 [build-system]
