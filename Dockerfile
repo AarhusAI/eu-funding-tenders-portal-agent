@@ -10,12 +10,19 @@ RUN apt-get update \
 RUN addgroup --system --gid ${APP_GID} appuser \
  && adduser --system --no-create-home --uid ${APP_UID} --ingroup appuser appuser
 
+COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /usr/local/bin/uv
+# Sync into the system interpreter rather than /app/.venv, so python, pytest,
+# ruff and basedpyright stay on the default PATH.
+ENV UV_PROJECT_ENVIRONMENT=/usr/local
+
 WORKDIR /app
-COPY pyproject.toml ./
+COPY pyproject.toml uv.lock ./
 
 
+# --no-install-project: the app runs from /app source (app.main:app), never as
+# an installed package, and app/ isn't copied yet at this point.
 FROM base AS dev
-RUN pip install --no-cache-dir ".[dev]"
+RUN uv sync --locked --no-cache --no-install-project --extra dev
 USER appuser
 COPY app/ app/
 EXPOSE 8000
@@ -27,7 +34,7 @@ HEALTHCHECK CMD curl -f http://localhost:8000/health || exit 1
 CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
 FROM base AS prod
-RUN pip install --no-cache-dir .
+RUN uv sync --locked --no-cache --no-install-project
 USER appuser
 COPY app/ app/
 EXPOSE 8000

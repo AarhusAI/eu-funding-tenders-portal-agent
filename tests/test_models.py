@@ -45,6 +45,7 @@ def test_language_hint_must_be_iso_639_1():
 
 
 def test_profile_accepts_a_partial_body():
-    request = SearchRequest(query="x", profile={"clusters": ["CL5"]})
+    request = SearchRequest.model_validate({"query": "x", "profile": {"clusters": ["CL5"]}})
+    assert request.profile is not None
     assert request.profile.clusters == ["CL5"]
     assert request.profile.keywords is None  # unset, filled in by profile.resolve

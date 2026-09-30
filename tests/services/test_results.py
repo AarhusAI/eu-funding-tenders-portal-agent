@@ -10,7 +10,7 @@ def _summary(**overrides) -> TopicSummary:
         "keywords": [f"k{n}" for n in range(20)],
         "tags": [f"t{n}" for n in range(20)],
     }
-    return TopicSummary(**{**base, **overrides})
+    return TopicSummary.model_validate({**base, **overrides})
 
 
 def test_numeric_codes_are_translated_for_humans():
@@ -53,6 +53,7 @@ def test_compact_truncates_long_descriptions_for_llm_callers():
     response = SearchResponse(results=[_summary()], total_matched=5)
     compacted = results.compact(response)
     description = compacted.results[0].description
+    assert description is not None
     assert len(description) == results.settings.mcp_max_description_chars + 1  # + the ellipsis
     assert description.endswith("…")
     assert len(compacted.results[0].keywords) == results.settings.mcp_max_keywords
@@ -65,7 +66,9 @@ def test_the_compaction_bounds_are_configurable(monkeypatch):
     monkeypatch.setattr(results.settings, "mcp_max_description_chars", 20)
     monkeypatch.setattr(results.settings, "mcp_max_keywords", 2)
     compacted = results.compact(SearchResponse(results=[_summary()]))
-    assert len(compacted.results[0].description) == 21  # 20 + the ellipsis
+    description = compacted.results[0].description
+    assert description is not None
+    assert len(description) == 21  # 20 + the ellipsis
     assert len(compacted.results[0].keywords) == 2
     assert len(compacted.results[0].tags) == 2
 
@@ -83,5 +86,9 @@ def test_compact_tolerates_a_missing_description():
 def test_rest_and_mcp_paths_differ_only_in_verbosity():
     """The REST endpoint keeps the full record; only the MCP path compacts."""
     response = SearchResponse(results=[_summary()])
-    assert len(response.results[0].description) == 900
-    assert len(results.compact(response).results[0].description) < 900
+    full = response.results[0].description
+    compacted = results.compact(response).results[0].description
+    assert full is not None
+    assert compacted is not None
+    assert len(full) == 900
+    assert len(compacted) < 900

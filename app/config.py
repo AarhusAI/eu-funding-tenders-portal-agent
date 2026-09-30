@@ -102,5 +102,6 @@ class Settings(BaseSettings):
     debug: bool = False
 
 
-# Built once at import time; a missing required var aborts startup here.
-settings = Settings()
+# Built once at import time; a missing required var aborts startup here. The
+# required fields come from the environment, which pyright can't see.
+settings = Settings()  # pyright: ignore[reportCallIssue]

@@ -57,7 +57,7 @@ read, instead of everything the Portal happens to match. Every field is optional
 falls back to the default profile, which encodes the example from the original brief:
 
 | Field | Meaning | Applied |
-|---|---|---|
+| --- | --- | --- |
 | `programmes` | Framework programmes, e.g. `["Horizon Europe", "Digital Europe"]` | server-side |
 | `statuses` | Submission statuses, default `["Forthcoming", "Open for submission"]` | server-side |
 | `languages` | Which language copy of each topic to fetch, default `["en"]` | server-side |
@@ -70,7 +70,7 @@ falls back to the default profile, which encodes the example from the original b
 Both filter on the **topic identifier**, the code the Portal gives every call topic. It is
 structured, so you can read a topic's subject area straight off it:
 
-```
+```text
 HORIZON-CL5-2027-07-D3-16
 └─────┘ └─┘ └──┘ └┘ └──┘
    │     │    │   │    └── topic number
@@ -84,7 +84,7 @@ HORIZON-CL5-2027-07-D3-16
 three in the default profile are the ones a municipality tends to be eligible for:
 
 | Code | Cluster |
-|---|---|
+| --- | --- |
 | `CL2` | Culture, Creativity and Inclusive Society |
 | `CL4` | Digital, Industry and Space |
 | `CL5` | Climate, Energy and Mobility |
@@ -200,7 +200,7 @@ payload is 20.8 MB, but 36% of that is HTML the product never reads (`topicCondi
 `CACHE_BACKEND` picks one of three, keyed on `(query, languages)` in both cases that store anything:
 
 | Backend | Behaviour | Use when |
-|---|---|---|
+| --- | --- | --- |
 | `memory` *(default)* | Process heap. No infrastructure, nothing on disk, nothing shared. | Single container, dev, tests. |
 | `redis` | One shared copy in Redis at `CACHE_REDIS_URL`, written with `SETEX` at `PORTAL_CACHE_TTL`. | More than one instance, or restarts frequent enough that the cold fetch hurts. |
 | `disabled` | Every search refetches. | Debugging the Portal path. |
@@ -241,7 +241,7 @@ LLM handles translation; the request's `language` field is the hint that drives 
 things:
 
 | Setting | Controls |
-|---|---|
+| --- | --- |
 | `language` (request field) | Which language the agent **answers** in. This is the one you usually want. |
 | `PORTAL_LANGUAGES` / `profile.languages` | Which **language copy of each record** is pulled out of the Portal's index. |
 
@@ -265,7 +265,7 @@ All settings come from the environment. Fields without a default are required an
 import, so the service refuses to start misconfigured rather than failing later.
 
 | Variable | Default | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `API_KEY` | — | **required.** Bearer token clients must send |
 | `AGENT_API_KEY` | — | **required.** This agent → LiteLLM |
 | `AGENT_MODEL` | `gpt-4o-mini` | model name passed to LiteLLM |
@@ -393,17 +393,17 @@ and to show what "unofficial" costs in practice. The maintenance rules that foll
 **Endpoint** — `POST https://api.tech.ec.europa.eu/search-api/prod/rest/search`, with
 `apiKey=SEDIA`, `text=***` (the "no free-text term" wildcard), `pageSize`, `pageNumber`.
 
-**`query` and `languages` must be multipart _file_ parts**, each with a filename and an explicit
+**`query` and `languages` must be multipart *file* parts**, each with a filename and an explicit
 `Content-Type: application/json` — this mirrors the portal frontend, which posts them as
 `FormData(Blob)`. Sent as ordinary form fields the API returns `500 {"type":"throwable"}`; passed in
 the URL, `query` is accepted and then **silently ignored**, so the call appears to work while
 returning unfiltered results. `dev/mock-portal` reproduces both failures on purpose, and a test
 asserts on the bytes we send.
 
-**Verified filter values**
+### Verified filter values
 
 | Field | Values |
-|---|---|
+| --- | --- |
 | `type` | `1` = call topic |
 | `status` | `31094501` Forthcoming · `31094502` Open for submission · `31094503` Closed |
 | `frameworkProgramme` | `43108390` HORIZON · `43152860` DIGITAL · `43332642` EU4H |

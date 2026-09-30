@@ -59,6 +59,7 @@ cached through `app/services/cache.py`, keyed on `(canonical query JSON, languag
 
 **The cache backend** is chosen by `CACHE_BACKEND` and is a port of `AarhusAI/search-agent`'s
 `src/search_agent/cache.py` — keep the two recognisable; don't drift the protocol or the names.
+
 - `memory` (default) is per-process: a restart pays a ~10–20 s cold fetch, `--reload` drops it on
   every edit, and the container **must** run a single uvicorn worker (`--workers` = N copies, N cold
   fetches). `redis` removes all three constraints; `disabled` refetches every time.
@@ -71,7 +72,7 @@ cached through `app/services/cache.py`, keyed on `(canonical query JSON, languag
 ## Key Directories
 
 | Path | Purpose |
-|---|---|
+| --- | --- |
 | `app/routes/` | Thin HTTP shells — auth dep, delegate, return. Zero business logic. |
 | `app/services/` | All logic, one module per concern (`agent`, `cache`, `corpus`, `portal_api`, `profile`, `results`). |
 | `tests/` | Mirrors app top-level modules; `tests/services/` mirrors `app/services/` 1:1. |
@@ -135,7 +136,7 @@ nonexistent `task logs`) and denies all read/write of `.env`.
   JSON-encoded string — so read it via `corpus._keywords`, never `_all`. Getting this wrong is
   invisible in ranking (substring matching still hits inside the blob) but defeats every
   `keywords[:n]` cap downstream.
-- **`profile.py` purity is a contract.** It may import only `re`, `app.config.settings`,
+- **`profile.py` purity is a contract.** It may import only `re`, `typing.Any`, `app.config.settings`,
   `app.models.SearchProfile`. No httpx, no asyncio, no `time`, no LLM. This is what makes 100% coverage
   realistic.
 - **Error handling.** `agent.handle()` never raises: timeout, `UsageLimitExceeded` (the
@@ -157,7 +158,7 @@ nonexistent `task logs`) and denies all read/write of `.env`.
 ## Important Files
 
 | File | Why it matters |
-|---|---|
+| --- | --- |
 | `app/main.py` | App wiring. `app.mount("/", …)` **must stay last** (`:122`) or it shadows `/search` and `/health`. `mcp.session_manager.run()` in the lifespan is mandatory — Starlette does not run a mounted sub-app's lifespan. MCP auth is a raw-ASGI middleware, not `BaseHTTPMiddleware` (which would buffer and break SSE) and not `Depends` (unreachable in a mounted app). |
 | `app/config.py` | `settings = Settings()` at import → fail-fast. `api_key` and `agent_api_key` are the only required fields. Every field here is read somewhere — keep it that way; a declared-but-unused setting silently lies to whoever sets it. |
 | `app/services/portal_api.py` | `_blob()` must stay a multipart **file** part with filename + explicit `Content-Type: application/json`. As a form field → `500 {"type":"throwable"}`; in the URL → `query` is silently ignored and results come back unfiltered. `_best_row()` picks the richest row — never `results[0]`, because stub rows (no status, empty description) sort first. |
@@ -172,9 +173,12 @@ nonexistent `task logs`) and denies all read/write of `.env`.
 
 - **Python floor is 3.11** (`requires-python`, ruff `target-version = "py311"`) even though the image is
   `python:3.12-slim`. 3.12-only syntax runs but violates the contract.
-- **Docker-mediated everything.** No virtualenv, no requirements.txt, no lock file. New runtime dep →
-  `[project] dependencies`; new tool → `[project.optional-dependencies] dev`. `pyproject.toml` is
-  bind-mounted **read-only**, so a dependency edit needs `task up` (rebuild), not a restart.
+- **Docker-mediated everything.** The image installs with `uv sync --locked` from `uv.lock` into the
+  system interpreter (`UV_PROJECT_ENVIRONMENT=/usr/local`) — no virtualenv, no requirements.txt. New
+  runtime dep → `[project] dependencies`; new tool → `[project.optional-dependencies] dev`; then
+  re-run `uv lock` (the build fails on a stale lock, and CI runs `uv lock --check`). `pyproject.toml`
+  and `uv.lock` are bind-mounted **read-only**, so a dependency edit needs `task up` (rebuild), not a
+  restart.
 - **Pinned with reason — do not widen:** `pydantic-ai-slim[openai]>=2.0,<3` (<1.0 resolves to 0.8.1, which
   imports the removed `opentelemetry._events`) and `mcp[cli]>=2.0,<3` (2.x renamed `FastMCP` → `MCPServer`
   and moved `transport_security` onto `streamable_http_app()`). Rationale recorded in `CHANGELOG.md`.
@@ -190,13 +194,13 @@ nonexistent `task logs`) and denies all read/write of `.env`.
 
 ## Testing & QA
 
-pytest 8 + `pytest-asyncio` in `asyncio_mode = "auto"` (bare `async def test_…`, no marker) + `pytest-cov`
-+ `respx`. Coverage gate is `fail_under = 100` in `pyproject.toml`, enforced only by `task test:coverage`
+pytest 8 + `pytest-asyncio` in `asyncio_mode = "auto"` (bare `async def test_…`, no marker), `pytest-cov`
+and `respx`. Coverage gate is `fail_under = 100` in `pyproject.toml`, enforced only by `task test:coverage`
 — `task ci` does not run it. There is no CI workflow; the gate is manual.
 
 - **Mock at the two external edges only**: the Portal via `respx.post(PORTAL_URL)` (import `PORTAL_URL`
-  from `tests.conftest`, never re-spell it), and the LLM via `pydantic_ai.models.function.FunctionModel`
-  + `built.override(model=…)`. There is **no HTTP mock of the LiteLLM endpoint**; the base URL exists only
+  from `tests.conftest`, never re-spell it), and the LLM via `pydantic_ai.models.function.FunctionModel`,
+  plus `built.override(model=…)`. There is **no HTTP mock of the LiteLLM endpoint**; the base URL exists only
   so `Settings()` validates. `_build_agent()` is memoised, so `override` must wrap the `await handle(...)`.
 - **Test names are full sentences** describing behaviour and reason
   (`test_a_stub_never_displaces_a_complete_row`), and docstrings record measured facts. Tests assert on

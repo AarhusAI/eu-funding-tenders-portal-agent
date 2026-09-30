@@ -14,6 +14,7 @@ here over the whole retrieved corpus.
 """
 
 import re
+from typing import Any
 
 from app.config import settings
 from app.models import SearchProfile
@@ -156,7 +157,7 @@ def _lookup(
     return ids, warnings
 
 
-def server_query(profile: SearchProfile) -> tuple[dict, list[str]]:
+def server_query(profile: SearchProfile) -> tuple[dict[str, Any], list[str]]:
     """Build the Portal ``query`` body for a profile, plus any name warnings.
 
     Only the filters the Portal actually supports go in here: document type,
@@ -165,7 +166,7 @@ def server_query(profile: SearchProfile) -> tuple[dict, list[str]]:
     programme_ids, programme_warnings = _lookup(profile.programmes, PROGRAMME_IDS, "programme")
     status_ids, status_warnings = _lookup(profile.statuses, STATUS_IDS, "status")
 
-    must: list[dict] = [{"terms": {"type": [TYPE_CALL_TOPIC]}}]
+    must: list[dict[str, Any]] = [{"terms": {"type": [TYPE_CALL_TOPIC]}}]
     if status_ids:
         must.append({"terms": {"status": status_ids}})
     if programme_ids:
@@ -173,7 +174,7 @@ def server_query(profile: SearchProfile) -> tuple[dict, list[str]]:
     return {"bool": {"must": must}}, programme_warnings + status_warnings
 
 
-def identifier_query(identifier: str) -> dict:
+def identifier_query(identifier: str) -> dict[str, Any]:
     """Build the query for one exact topic identifier.
 
     ``type`` is pinned to call-topic: several unrelated documents can share an
@@ -221,7 +222,7 @@ def _pattern(keyword: str) -> re.Pattern[str]:
     return re.compile(lead + re.escape(keyword) + trail, re.IGNORECASE)
 
 
-def _haystacks(topic: dict) -> tuple[str, str]:
+def _haystacks(topic: dict[str, Any]) -> tuple[str, str]:
     """Return the (metadata, description) text a keyword may match in."""
     parts: list[str] = [str(topic.get("title") or "")]
     parts += [str(k) for k in topic.get("keywords") or []]
@@ -229,7 +230,7 @@ def _haystacks(topic: dict) -> tuple[str, str]:
     return " ".join(parts), str(topic.get("description") or "")
 
 
-def score(topic: dict, keywords: list[str] | None) -> tuple[int, list[str]]:
+def score(topic: dict[str, Any], keywords: list[str] | None) -> tuple[int, list[str]]:
     """Score one topic additively over the *distinct* keywords it matches.
 
     A keyword found in the title/keywords/tags scores ``_SCORE_METADATA``; one
@@ -267,20 +268,20 @@ def _matches_identifier_filters(identifier: str, profile: SearchProfile) -> bool
     return any(cluster.upper() in upper for cluster in clusters)
 
 
-def _deadline_sort_key(topic: dict) -> str:
+def _deadline_sort_key(topic: dict[str, Any]) -> str:
     """Sort key for the deadline: soonest first, topics without one last."""
     # "~" sorts after every digit, so a missing deadline lands at the end.
     return str(topic.get("deadline_date") or "~")
 
 
-def apply(topics: list[dict], profile: SearchProfile) -> list[dict]:
+def apply(topics: list[dict[str, Any]], profile: SearchProfile) -> list[dict[str, Any]]:
     """Filter ``topics`` by the profile's identifier rules, then rank them.
 
     Returns new dicts carrying ``score`` and ``matched_keywords``; the input is
     not mutated. Ordering is score descending, then soonest deadline, then
     identifier — the last making the order stable and reproducible in tests.
     """
-    scored: list[dict] = []
+    scored: list[dict[str, Any]] = []
     for topic in topics:
         identifier = str(topic.get("identifier") or "")
         if not _matches_identifier_filters(identifier, profile):

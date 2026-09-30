@@ -142,7 +142,7 @@ def _build_agent() -> Agent[AgentDeps, str]:
         statuses: list[str] | None = None,
         clusters: list[str] | None = None,
         topic_contains: list[str] | None = None,
-    ) -> list[dict]:
+    ) -> list[dict[str, Any]]:
         """Search EU funding call topics within the caller's profile.
 
         Args:
@@ -180,7 +180,7 @@ def _build_agent() -> Agent[AgentDeps, str]:
         return [_preview(topic) for topic in selected]
 
     @_agent.tool
-    async def get_topic(ctx: RunContext[AgentDeps], identifier: str) -> dict:
+    async def get_topic(ctx: RunContext[AgentDeps], identifier: str) -> dict[str, Any]:
         """Fetch one call topic in full by its exact identifier.
 
         Args:

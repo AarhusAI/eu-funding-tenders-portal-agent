@@ -58,7 +58,11 @@ services:
       # doesn't break pydantic-settings list parsing.
       MCP_ALLOWED_HOSTS: ${MCP_ALLOWED_HOSTS:-["eu-funding-tenders-portal-agent:*","localhost:*"]}
       DEBUG: ${DEBUG:-false}
+      # /app is root-owned and the container runs as appuser, so every tool
+      # that writes next to pyproject.toml has to be pointed at /tmp instead.
       RUFF_CACHE_DIR: /tmp/ruff_cache
+      COVERAGE_FILE: /tmp/.coverage
+      UV_CACHE_DIR: /tmp/uv_cache
     volumes:
       # /app/app, not /app: the Dockerfile sets WORKDIR /app and copies the
       # Python package to /app/app, so the mount has to land on the package
@@ -67,6 +71,14 @@ services:
       - ./app:/app/app
       - ./tests:/app/tests
       - ./pyproject.toml:/app/pyproject.toml:ro
+      # The image installs from uv.lock; mounted so `uv lock --check`
+      # (.github/workflows/tests.yml) sees the working copy, not the built one.
+      - ./uv.lock:/app/uv.lock:ro
+      # Accepted basedpyright warnings; regenerate with `basedpyright --writebaseline`.
+      - ./.basedpyright:/app/.basedpyright:ro
+    labels:
+      # Picked up by the lint and tests workflows.
+      dk.itkdev.python: "true"
 
   # Both mocks sit behind compose profiles so a plain `docker compose up` runs
   # only the agent. NOTE: depends_on does NOT activate a profile — the Taskfile
@@ -114,7 +126,14 @@ services:
     # allkeys-lru rather than the default noeviction: one corpus measures 4.2 MB,
     # so 256 MB holds ~60 profile/language combinations, and evicting the coldest
     # beats refusing writes.
-    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    command:
+      [
+        "redis-server",
+        "--maxmemory",
+        "256mb",
+        "--maxmemory-policy",
+        "allkeys-lru",
+      ]
     volumes:
       - ./.docker/data/redis/:/data
     healthcheck:
@@ -123,3 +142,12 @@ services:
       timeout: 3s
       retries: 3
       start_period: 5s
+
+  # Used by .github/workflows/yaml.yaml. No official image yet
+  # (https://github.com/prettier/prettier/issues/15206).
+  prettier:
+    image: jauderho/prettier
+    profiles:
+      - dev
+    volumes:
+      - ./:/work

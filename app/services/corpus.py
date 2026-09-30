@@ -42,7 +42,7 @@ _WS_RE = re.compile(r"\s+")
 _NAMESPACE = "corpus"
 
 
-def _cache_key(query: dict, languages: list[str]) -> str:
+def _cache_key(query: dict[str, Any], languages: list[str]) -> str:
     """Key one corpus on its server query plus the languages fetched.
 
     The language MUST be part of the key: keyed on the query alone, a request
@@ -208,7 +208,7 @@ def _dedupe(topics: list[dict[str, Any]], languages: list[str]) -> list[dict[str
     return out
 
 
-async def get_topics(query: dict, languages: list[str]) -> list[dict[str, Any]]:
+async def get_topics(query: dict[str, Any], languages: list[str]) -> list[dict[str, Any]]:
     """Return the trimmed, deduped topic corpus for one query + language set.
 
     Served from the cache backend when an entry is present and younger than

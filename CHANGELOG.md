@@ -1,11 +1,19 @@
 # Changelog
 
-All notable changes to this project are documented here.
+All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project
-adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
+
+- Added actions and linting
+- The image installs dependencies with `uv` from a committed `uv.lock` instead of `pip`.
+- Coverage data (`COVERAGE_FILE`) and the uv cache are written to `/tmp`, since `/app` isn't
+  writable by the container user.
+- `basedpyright` type checking: errors fixed, existing warnings accepted in
+  `.basedpyright/baseline.json` so only new ones fail CI.
+
+## [0.0.1] - 2026-09-16
 
 ### Added
 
@@ -74,13 +82,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   reproduces the real API's 500 on plain-form parameters and 400 on unsupported query clauses.
 - 100% test coverage, enforced with `--cov-fail-under=100`.
 
-### Notes
-
-Dependency pins differ deliberately from the sibling agents, whose current pins no longer resolve to
-an importable install:
-
-- `mcp[cli]>=2.0,<3` — SDK 2.0 renamed `FastMCP` to `MCPServer` and moved `transport_security` from
-  the constructor to `streamable_http_app()`. The `mcp.server.fastmcp` import path is gone.
-- `pydantic-ai-slim[openai]>=2.0,<3` — the siblings' `<1.0` pin resolves to 0.8.1, which imports
-  `opentelemetry._events`, a module removed from current `opentelemetry-api`. `OpenAIModel` is now
-  `OpenAIChatModel`.
+[Unreleased]: https://github.com/AarhusAI/office-agent/compare/0.0.1...HEAD
+[Keep a Changelog]: https://keepachangelog.com/en/1.1.0/
+[Semantic Versioning]: https://semver.org/spec/v2.0.0.html
+[0.0.1]: https://github.com/AarhusAI/eu-funding-tenders-portal-agent/releases/tag/0.0.1

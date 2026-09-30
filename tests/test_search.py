@@ -1,6 +1,8 @@
 """End-to-end: POST /search -> agent (scripted LLM) -> Portal (mocked HTTP) ->
 filtered, ranked, deduped response."""
 
+from typing import Any
+
 import httpx
 import respx
 from pydantic_ai.messages import ModelResponse, TextPart, ToolCallPart
@@ -10,7 +12,7 @@ from app.services import agent as agent_module
 from tests.conftest import PORTAL_URL
 
 
-def _script(tool_args: dict):
+def _script(tool_args: dict[str, Any]):
     def gen(messages, info):
         called = any(
             getattr(part, "part_kind", None) == "tool-return"
