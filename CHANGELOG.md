@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ## [Unreleased]
 
 - Added actions and linting
+- The image installs dependencies with `uv` from a committed `uv.lock` instead of `pip`.
+- Coverage data (`COVERAGE_FILE`) and the uv cache are written to `/tmp`, since `/app` isn't
+  writable by the container user.
 
 ## [0.0.1] - 2026-09-16
 

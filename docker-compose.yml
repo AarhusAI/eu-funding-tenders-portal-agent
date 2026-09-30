@@ -58,7 +58,11 @@ services:
       # doesn't break pydantic-settings list parsing.
       MCP_ALLOWED_HOSTS: ${MCP_ALLOWED_HOSTS:-["eu-funding-tenders-portal-agent:*","localhost:*"]}
       DEBUG: ${DEBUG:-false}
+      # /app is root-owned and the container runs as appuser, so every tool
+      # that writes next to pyproject.toml has to be pointed at /tmp instead.
       RUFF_CACHE_DIR: /tmp/ruff_cache
+      COVERAGE_FILE: /tmp/.coverage
+      UV_CACHE_DIR: /tmp/uv_cache
     volumes:
       # /app/app, not /app: the Dockerfile sets WORKDIR /app and copies the
       # Python package to /app/app, so the mount has to land on the package
@@ -67,6 +71,9 @@ services:
       - ./app:/app/app
       - ./tests:/app/tests
       - ./pyproject.toml:/app/pyproject.toml:ro
+      # The image installs from uv.lock; mounted so `uv lock --check`
+      # (.github/workflows/tests.yml) sees the working copy, not the built one.
+      - ./uv.lock:/app/uv.lock:ro
     labels:
       # Picked up by the lint and tests workflows.
       dk.itkdev.python: "true"

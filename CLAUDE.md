@@ -173,9 +173,12 @@ nonexistent `task logs`) and denies all read/write of `.env`.
 
 - **Python floor is 3.11** (`requires-python`, ruff `target-version = "py311"`) even though the image is
   `python:3.12-slim`. 3.12-only syntax runs but violates the contract.
-- **Docker-mediated everything.** No virtualenv, no requirements.txt, no lock file. New runtime dep →
-  `[project] dependencies`; new tool → `[project.optional-dependencies] dev`. `pyproject.toml` is
-  bind-mounted **read-only**, so a dependency edit needs `task up` (rebuild), not a restart.
+- **Docker-mediated everything.** The image installs with `uv sync --locked` from `uv.lock` into the
+  system interpreter (`UV_PROJECT_ENVIRONMENT=/usr/local`) — no virtualenv, no requirements.txt. New
+  runtime dep → `[project] dependencies`; new tool → `[project.optional-dependencies] dev`; then
+  re-run `uv lock` (the build fails on a stale lock, and CI runs `uv lock --check`). `pyproject.toml`
+  and `uv.lock` are bind-mounted **read-only**, so a dependency edit needs `task up` (rebuild), not a
+  restart.
 - **Pinned with reason — do not widen:** `pydantic-ai-slim[openai]>=2.0,<3` (<1.0 resolves to 0.8.1, which
   imports the removed `opentelemetry._events`) and `mcp[cli]>=2.0,<3` (2.x renamed `FastMCP` → `MCPServer`
   and moved `transport_security` onto `streamable_http_app()`). Rationale recorded in `CHANGELOG.md`.
