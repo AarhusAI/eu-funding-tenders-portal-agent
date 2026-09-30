@@ -74,6 +74,8 @@ services:
       # The image installs from uv.lock; mounted so `uv lock --check`
       # (.github/workflows/tests.yml) sees the working copy, not the built one.
       - ./uv.lock:/app/uv.lock:ro
+      # Accepted basedpyright warnings; regenerate with `basedpyright --writebaseline`.
+      - ./.basedpyright:/app/.basedpyright:ro
     labels:
       # Picked up by the lint and tests workflows.
       dk.itkdev.python: "true"

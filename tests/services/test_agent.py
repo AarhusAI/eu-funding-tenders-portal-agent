@@ -6,6 +6,7 @@ ever reaches an LLM.
 """
 
 import asyncio
+from typing import Any
 
 import httpx
 import respx
@@ -17,7 +18,7 @@ from app.services import agent as agent_module
 from tests.conftest import PORTAL_URL
 
 
-def _script_tool(tool_name: str, tool_args: dict):
+def _script_tool(tool_name: str, tool_args: dict[str, Any]):
     """A FunctionModel that calls one tool once, then answers with text."""
 
     def gen(messages, info):

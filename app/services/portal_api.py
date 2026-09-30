@@ -61,7 +61,7 @@ def _blob(payload: Any) -> tuple[str, str, str]:
 
 
 async def search(
-    query: dict,
+    query: dict[str, Any],
     *,
     languages: list[str],
     text: str = "***",
@@ -86,7 +86,7 @@ async def search(
 
 
 async def search_all(
-    query: dict,
+    query: dict[str, Any],
     *,
     languages: list[str],
     max_pages: int | None = None,

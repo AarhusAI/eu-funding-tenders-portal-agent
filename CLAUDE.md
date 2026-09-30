@@ -136,7 +136,7 @@ nonexistent `task logs`) and denies all read/write of `.env`.
   JSON-encoded string — so read it via `corpus._keywords`, never `_all`. Getting this wrong is
   invisible in ranking (substring matching still hits inside the blob) but defeats every
   `keywords[:n]` cap downstream.
-- **`profile.py` purity is a contract.** It may import only `re`, `app.config.settings`,
+- **`profile.py` purity is a contract.** It may import only `re`, `typing.Any`, `app.config.settings`,
   `app.models.SearchProfile`. No httpx, no asyncio, no `time`, no LLM. This is what makes 100% coverage
   realistic.
 - **Error handling.** `agent.handle()` never raises: timeout, `UsageLimitExceeded` (the

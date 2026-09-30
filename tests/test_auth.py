@@ -36,7 +36,7 @@ async def test_verify_api_key_raises_401_with_challenge():
     with pytest.raises(HTTPException) as excinfo:
         await verify_api_key("Bearer nope")
     assert excinfo.value.status_code == 401
-    assert excinfo.value.headers["WWW-Authenticate"] == "Bearer"
+    assert excinfo.value.headers == {"WWW-Authenticate": "Bearer"}
 
 
 async def test_search_requires_auth(client):

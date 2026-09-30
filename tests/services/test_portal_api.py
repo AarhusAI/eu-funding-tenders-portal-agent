@@ -6,6 +6,8 @@ as ordinary form fields returns 500 from the real API, and a maintainer
 failure, so we assert on the bytes we send instead.
 """
 
+from typing import Any
+
 import httpx
 import pytest
 import respx
@@ -62,7 +64,7 @@ async def test_search_raises_on_http_error():
 # --- pagination --------------------------------------------------------------
 
 
-def _page(count: int, total: int = 1000) -> dict:
+def _page(count: int, total: int = 1000) -> dict[str, Any]:
     return {
         "totalResults": total,
         "results": [
@@ -110,7 +112,9 @@ async def test_search_all_logs_when_the_page_cap_truncates(monkeypatch, caplog):
 # --- one topic by identifier -------------------------------------------------
 
 
-def _row(identifier: str, *, status="31094501", description="Real description"):
+def _row(
+    identifier: str, *, status: str | None = "31094501", description: str = "Real description"
+):
     metadata = {"identifier": [identifier], "descriptionByte": [description]}
     if status:
         metadata["status"] = [status]
@@ -148,6 +152,7 @@ async def test_get_by_identifier_returns_the_richest_row():
         )
     )
     row = await portal_api.get_by_identifier("HORIZON-CL5-1", languages=["en"])
+    assert row is not None
     assert row["metadata"]["status"] == ["31094501"]
 
 

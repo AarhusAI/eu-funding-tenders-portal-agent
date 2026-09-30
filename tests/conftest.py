@@ -1,6 +1,7 @@
 import json
 import os
 import pathlib
+from typing import Any
 
 # Pydantic-settings reads the environment at module import time, so these
 # overrides MUST land before any `app` import. Anything below this block
@@ -53,7 +54,7 @@ async def _reset_state():
 
 
 @pytest.fixture
-def portal_page() -> dict:
+def portal_page() -> dict[str, Any]:
     """A real (trimmed) Portal search response — see .tmp/make_fixtures.py."""
     return json.loads((FIXTURES / "portal_search_page.json").read_text())
 
@@ -65,11 +66,11 @@ def identifiers() -> dict[str, str]:
 
 
 @pytest.fixture
-def topics(portal_page) -> list[dict]:
+def topics(portal_page) -> list[dict[str, Any]]:
     """The fixture page already trimmed into the corpus's internal shape."""
     return [corpus.trim(row) for row in portal_page["results"]]
 
 
 @pytest.fixture
-def empty_page() -> dict:
+def empty_page() -> dict[str, Any]:
     return {"totalResults": 0, "pageNumber": 1, "pageSize": 100, "results": []}

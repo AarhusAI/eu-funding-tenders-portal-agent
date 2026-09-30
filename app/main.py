@@ -100,7 +100,7 @@ app.include_router(search_router)
 
 
 @app.get("/health")
-async def health() -> dict:
+async def health() -> dict[str, str]:
     """Liveness probe — always returns ok if the process is running."""
     return {"status": "ok"}
 

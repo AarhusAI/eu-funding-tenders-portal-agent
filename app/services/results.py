@@ -9,6 +9,8 @@ load-bearing "return full_results, not what the LLM saw" split — lives in one
 place.
 """
 
+from typing import Any
+
 from app.config import settings
 from app.models import SearchProfile, SearchResponse, TopicSummary
 from app.services import agent
@@ -41,7 +43,7 @@ async def run_search(
     )
 
 
-def _to_summary(topic: dict) -> TopicSummary:
+def _to_summary(topic: dict[str, Any]) -> TopicSummary:
     """Convert a trimmed topic dict into the ``TopicSummary`` we return.
 
     Status and programme are translated from the Portal's numeric ids into the
