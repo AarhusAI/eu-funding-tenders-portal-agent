@@ -117,7 +117,14 @@ services:
     # allkeys-lru rather than the default noeviction: one corpus measures 4.2 MB,
     # so 256 MB holds ~60 profile/language combinations, and evicting the coldest
     # beats refusing writes.
-    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    command:
+      [
+        "redis-server",
+        "--maxmemory",
+        "256mb",
+        "--maxmemory-policy",
+        "allkeys-lru",
+      ]
     volumes:
       - ./.docker/data/redis/:/data
     healthcheck:
